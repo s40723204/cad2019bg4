@@ -75,12 +75,7 @@ Created by [cad2019bg4](https://s40723204.github.io/cad2019bg4/content/index.htm
 <section data-markdown>
     <script type="text/template">
 <!-- 請注意, @others 不可以內縮 -->
-# 數學符號與方程式
-
-Inline math equations go in like so: $\omega = d\phi / dt$. Display
-math should get its own line and be put in in double-dollarsigns:
-
-$$I = \int \rho R^{2} dV$$
+# Week10~week12
     </script>
 </section>
 
@@ -89,33 +84,14 @@ $$I = \int \rho R^{2} dV$$
 						
 <section data-markdown>
     <script type="text/template">
-<!-- 請注意, @others 不可以內縮 -->
-## 利用 Markdown 寫投影片
-以下利用 Markdown 格式展示 Python 程式碼:
-```
-# use threading and subprocess to threading the make process
-import os
-import subprocess
-import threading
-
-def domake():
-    
-    path = "../exposed/api/exposed"
-    ubuntu = "../Ubuntu"
-    
-    # create obj path
-    
-    if not os.path.exists(path+"/../obj"):
-        os.makedirs(path+"/../obj")
-    
-    subprocess.call(["make", "clean"], cwd=path)
-    subprocess.call("make", cwd=path)
-    subprocess.call(["cp", "{libslvs.so, _slvs.so, slvs.py}", ubuntu], cwd=path)
-    subprocess.call(["python3", "circle_ex.py"], cwd=path+"/"+ubuntu)
-    
-make = threading.Thread(target=domake)
-make.start()
-```
+## Week10
+ 1.組長建立分組倉儲，利用fork加入組員，組員利用pull requests參與分組作業
+ 
+ 2.分別進行 Solidworks 和 NX 繪圖練習
+ 
+ 3.進行Solidworks 和 NX 繪圖差異分析
+ 4. 進行Solidworks, NX, Inventor 與 Creo (Pro/E) 的開發緣起/套件安裝/設定流程/零組件繪圖的相關差異與特點分析
+ 
     </script>
 </section>
 
@@ -124,11 +100,12 @@ make.start()
 						
 <section data-markdown>
     <script type="text/template">
-## 使用 iframe 導入影片
+## Week12
+1.分別利用NX12或NX3 進行NX導引，分章節閱讀及操作
 
-### 導入影片 template
+2.進行 Webots 與 V-rep  Tutorial操作
 
-<iframe src="https://player.vimeo.com/video/183950627" width="640" height="492" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</iframe>
     </script>
 </section>
 
