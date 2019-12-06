@@ -57,6 +57,24 @@
 <p><span></span></p>
 <p></p>
 <p><span>40723242               趙子德</span></p>
+<p><strong>soildworks/nx分析</strong></p>
+<ul>
+<li>Solidworks</li>
+</ul>
+<p><strong>3D曲線支援能力</strong>:支援3D曲線，2D/3D線各別獨立.<br/><strong>平面及軸向鎖定</strong>：按tab鍵可切換繪製平面簡單方便，直線可鎖定軸向.<br/><strong>鎖點能力</strong>：一般，很多情況下需要使用relation幫忙定位還好他提供直接在3D線模式下建立補助平面，算是就比較麻煩一點但還能接受.</p>
+<p><br/><strong>3D曲線編輯</strong></p>
+<p>基本上SWX的曲線打上兩個端點之後產生的是一個3 dregree的曲線，含端點總共4個控制點<span>，</span>SWX曲線的handler可獨立調整切線方向或是切線延長切線影響範圍，在同類軟體裏面算是相當的好用的調整方式<span>，</span>同時也可以打開控制點的顯示，直接修改控制點的位置<span>，</span>缺點的話就是他的handler若只想針對單一平面調整會有些困難，經常可以看到一些示範影片中調整了上視圖的曲線之後側視圖的就跟著跑掉，一直來回調整<span>，</span>另外調整handler時經常造成閃退，以及handler經常無故消失無法操作是比較頭痛的問題<span>，</span>還有一點比較奇怪的是在開啟遠近透視的情況下，從上視圖拖曳點移動，會發現連垂直位置也受到影響.</p>
+<p><br/><strong>曲面生成及修改</strong><br/>SWX的曲面生成介面非常好用，可任意不按順序修改構成曲線也可以選擇截斷曲面的位置，這點可大幅減少配合曲面截斷曲線的需要合併線段選擇能力：SWX的Selection Manager也是一個相當好用的功能可以選擇合併不同線段來構成曲面，也是其它軟體比較缺乏的設計<span>，</span>但他的Selectin Manager操作上還是略嫌煩瑣就是。</p>
+<p><br/><strong>連續曲率能力(G1/G2/G3..等)</strong><br/>基本上都可支援到G2<br/>– 特有建模方式：應該沒有<br/>– 分析工具<br/>Curvature/Zebra都相當方便易用.</p>
+<p><br/><strong>顯示能力</strong><br/>曲面反射顯示：開啟顯卡Realview功能後可直接在視圖顯示反射，速度上還算不錯，相當的實用。但缺點是即使作適當調整後仍稍有些過曝感覺.<br/>即時視圖渲染：即時視圖不支援ray tracing，不過其實也不太需要就是.</p>
+<p><br/><strong>操作介面</strong><br/><strong>指令圖示</strong>：功能清楚，安排容易上手.<br/><strong>分割視圖</strong>：可切換分割.<br/><strong>快速視角切換</strong>：沒有切換視角的小方塊，需要用工具列切換比較不直覺<br/><strong>平移旋轉操作</strong>：中鍵旋轉，似乎無法自定右鍵功能.</p>
+<p><strong>執行順暢度</strong><br/><strong>硬體需求</strong>：繪圖時CPU佔用比其它軟體來的高，隨便畫個曲線都能聽到CPU風扇起飛的聲音。<br/><strong>軟體穩定度</strong>：不佳，經常遇到閃退情況。<br/>閃退時自動回復功能經常失效，或是乾脆完全都不作用，造成工作進度的損失。<br/>奇怪的問題不少，使用上的體驗並不是很好。<br/><br/></p>
+<ul>
+<li><strong><span><b>Creo (Pro/Engineer，ProE)</b></span></strong></li>
+</ul>
+<p><strong><span><b>優點</b></span></strong><br/><span>1. 硬體效能夠強，可以處理幾千件零組件的計算與畫面移動、旋轉等動作</span><br/><span>2. 軟體能順暢處理大型組合件</span><br/><span>3. 市購品廠商提供3D CAD模型</span></p>
+<p><strong>缺點:</strong></p>
+<p>機械設備的零組件少量多樣，不適合大量製造的製程，基本上都是以車、銑、鑽、磨為主，連放電跟線切割都要避免(成本考量)，形狀通常不會太過於複雜，少數會用到鑄造，形狀已經算比較複雜，包括必需考慮脫模角度，所以一般來說，設備零件考慮到加工製造的的成本效益很少會用到曲面。<br/><br/>相對消費性產品考慮量產與外觀，零件製造方法會以鈑金沖壓、塑膠射出為主，<br/>需要公母模的布林計算、鈑金展開、沖壓模或射出模設計，這些都需要用到複雜的形狀與曲面能力，這也是ProE在主要市場消費性電子產品設計上，軟體功能強項發展多在複雜的零件形狀設計(曲面)，以提供外觀設計跟大量製造的模具所需；但是這些曲面、模具設計功能到了機械設計用途就變成一無是處。</p>
 <p><span></span></p>
 <p><span>40723243               劉子源  </span></p>
 <p>1.文件格式:NX的文件格式為.prt；SolidWorks的文件格式為.sldprt。</p>
@@ -498,8 +516,8 @@
 <p><span>40723243               劉子源  </span></p>
 <p></p>
 <p><span>40723245               蔡育灃</span></p>
-<p><span></span></p><h2>week15 - 18</h2>
-<h1>Member attendance list</h1>
+<p><span></span></p>
+<h2>week15 - 18</h2>
 <h1>M.A.L</h1>
 <p></p>
 <p><span> ☑出席      ☒缺席</span></p>
@@ -717,7 +735,7 @@
 <p><strong>Perspective:</strong></p>
 <p><img alt="" height="145" src="https://s40723242.github.io/cad2019/images/s4.png" width="378"/></p>
 <hr/>
-<p><br/>git基本指令<img alt="" height="748" src="https://s40723242.github.io/cad2019/images/AcroRd32_5ocCE6WQng.png" width="500"/></p>
+<p><br/><strong>git基本指令</strong><img alt="" height="748" src="https://s40723242.github.io/cad2019/images/AcroRd32_5ocCE6WQng.png" width="500"/></p>
 <hr/>
 <p></p>
 <p><strong><span></span></strong></p>
