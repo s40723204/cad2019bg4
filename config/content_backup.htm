@@ -618,6 +618,29 @@
 <h4>Building a clean model tutorial</h4>
 <p>40723201          吳沛汶</p>
 <p>40723204          邱倚瀅</p>
+<p>The second important step is to export the original data with a limited precision: most CAD applications let you specify the level of details of exported meshes. It might also be important to export the objects in several steps, when the drawing consists of large and small objects; this is to avoid having large objects too precisely defined (too many triangles) and small objects too roughly defined (too few triangles): simply export large objects first (by adjusting the desired precision settings), then small objects (by adjusting up precision settings).</p>
+<p>第二個重要步驟是以有限的精度導出原始數據：大多數CAD應用程式都允許指定導出的網格的細節級別。當工程圖由大小項目組成時，分幾步導出也很重要。這是為了避免大項目定義太精確（三角形太多）和小項目定義太粗糙（三角形太少）：首先簡單地導出大項目（通過調整所需的精度設置），然後導出小項目（通過調整精度設置） 。</p>
+<p> CoppeliaSim supports currently following CAD data formats: <a href="http://www.coppeliarobotics.com/helpFiles/en/importExport.htm">OBJ</a>, <a href="http://www.coppeliarobotics.com/helpFiles/en/importExport.htm">STL</a>, <a href="http://www.coppeliarobotics.com/helpFiles/en/importExport.htm">DXF</a>, <a href="http://www.coppeliarobotics.com/helpFiles/en/importExport.htm">3DS</a> (Windows only), and <a href="http://www.coppeliarobotics.com/helpFiles/en/colladaPlugin.htm">Collada</a>. <a href="http://www.coppeliarobotics.com/helpFiles/en/urdfPlugin.htm">URDF</a> is also supported, but not mentionned here since it is not a pure mesh-based file format.</p>
+<p>CoppeliaSim目前支援以下CAD格式：OBJ，STL，DXF，3DS（僅Windows）和Collada。另外還支援URDF，但此處未提及，因為它不是純網格的文件格式</p>
+<p>Now suppose that we have applied all possible simplifications as described in previous section. We might still end-up with a too heavy mesh after import:</p>
+<p>現在，假設我們已按照上一節中所述應用了所有可能的簡化。導入後，我們可能最終仍然會留下一個過重的網格：</p>
+<p> You can notice that the whole robot was imported as a single mesh. We will see later how to divide it appropriately. Notice also the wrong orientation of the imported mesh: best is to keep the orientation as it is, until the whole model was built, since, if at a later stage we want to import other items that are related to that same robot, they will automatically have the correct position/orientation relative to the original mesh.</p>
+<p>這裡會注意到整個機器人是作為單個網格導入的。稍後將看到如何對此機器人進行適當劃分。要注意導入的網格的方向是否錯誤：最好保持其方向不變，直到建完整個模型為止，因為如果在後面的階段中要導入與此機器人相關的其他項目，它們將自動具有相對於原始網格的正確位置/方向。</p>
+<p> At this stage, we have several functions at our disposal, to simplify the mesh:</p>
+<p>在此階段，可以使用多種功能來簡化網格：</p>
+<p><strong>Automatic mesh division:</strong>allows to generate a new shape for all elements that are not linked together via a common edge. This does not always work for the selected mesh, but is always worth a try, since working on mesh elements gives us more control than if we had to work on all elements at the same time. The function can be accessed with [Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; Divide selected shapes]. Sometimes, a mesh will be divided more than expected. In that case, simply merge elements that logically belong together (i.e. that will have the same visual attributes and that are part of the same link) back into one single shape ([Menu bar --&gt; Edit -&gt; Grouping/Merging --&gt; Merge selected shapes]).</p>
+<p>自動網格劃分：允許為未通過公共邊鏈接在一起的所有元素生成新形狀。這並不總是適用於選定的網格，但是總是值得一試的，因為與必須同時處理所有元素相比，處理網格元素可以為我們提供更多的控制權。可以通過[菜單欄-&gt;編輯-&gt;分組/合併-&gt;分割所選形狀]訪問該功能。有時，網格劃分會超出預期。在這種情況下，只需將邏輯上屬於一起的元素（即，具有相同的視覺屬性並且屬於同一鏈接的一部分）合併回一個單一形狀（[菜單欄-&gt;編輯-&gt;分組/合併-&gt;合併選定的形狀]）。</p>
+<p> <strong>Extract the convex hull:</strong>allows to simplify the mesh by transforming it into a convex hull. The function can be accessed with [Menu bar --&gt; Edit --&gt; Morph selection into convex shapes].</p>
+<p>提取凸包：通過將其轉換為凸包來簡化網格。可以通過[菜單欄-&gt;編輯-&gt;將選擇變形為凸形]來訪問該功能</p>
+<p> <strong>Decimate the mesh:</strong>allows to reduce the number of triangles contained in the mesh. The function can be accessed with [Menu bar --&gt; Edit --&gt; Decimate selected shape...].</p>
+<p>抽取網格：減少網格中包含的三角形數量。可以通過[菜單欄-&gt;編輯-&gt;縮小所選形狀...]訪問該功能。</p>
+<p> <strong>Remove the inside of the mesh:</strong>allows to simplify the mesh by removing its inside. This function is based on <span><a href="http://www.coppeliarobotics.com/helpFiles/en/visionSensors.htm">vision sensors</a></span> and might give more or less satisfying results depending on the selected settings. The function can be accessed with [Menu bar --&gt; Edit --&gt; Extract inside of selected shape].</p>
+<p>刪除網格的內部：允許通過刪除其內部來簡化網格。此功能基於視覺傳感器，根據所選設置可能會或多或少地令人滿意。可以通過[菜單欄-&gt;編輯-&gt;提取選定形狀的內部]訪問該功能。</p>
+<p>There is no predefined order in which above functions can/should be applied (except for the first item in the list, which should always be tried first), it heavily depends on the geometry of the mesh we are trying to simplify. Following image illustrates above functions applied to the imported mesh (let's suppose the first item in the list didn't work for us):</p>
+<p>此處沒有可以應用上述功能的預定義順序（列表中的第一項除外，應始終首先嘗試該項），它在很大程度上取決於我們要簡化的網格的幾何形狀。下圖說明了應用於導入的網格的上述功能（假設列表中的第一項對我們不起作用）：</p>
+<p> Notice how the convex hull doesn't help us at this stage. We decide to use the mesh decimation function first, and run the function twice in order to divide the number of triangles by a total of 50. Once that is done, we extract the inside of the simplified shape and discard it. We end-up with a mesh containing a total of 2'660 triangles (the original imported mesh contained more than 136'000 triangles!). The number of triangles/vertices a shape contains can be seen in the <a href="http://www.coppeliarobotics.com/helpFiles/en/geometryDialog.htm">shape geometry dialog</a>. 2'660 triangles are extremely few triangles for a whole robot model, and the visual appearance might suffer a little bit from it.</p>
+<p>請注意，凸包在現階段如何對我們沒有幫助。我們決定首先使用網格抽取功能，然後運行兩次該功能，以將三角形的數量總共除以50。完成後，我們提取簡化形狀的內部並將其丟棄。我們最終得到的網格總共包含2'660個三角形（原始導入的網格包含了136'000個三角形！）。形狀包含的三角形/頂點的數量可以在形狀幾何對話框中看到。對於整個機器人模型，2'660三角形是極少的三角形，因此視覺外觀可能會因此受到影響。</p>
+<p> </p>
 <p>40723213          杜玗宸</p>
 <p>40723215          杜彥霆</p>
 <p>40723218          林志豪</p>
@@ -660,6 +683,21 @@
 <h4 id="title-content">Webots User Guide</h4>
 <p>40723201          吳沛汶</p>
 <p>40723204          邱倚瀅</p>
+<p>Modifying the Floor</p>
+<p>修改地板 </p>
+<p>The default RectangleArena PROTO defines a simple floor pinned on the static environment, i.e. without <a href="https://cyberbotics.com/doc/reference/physics">Physics</a> node, and surrounded by walls. Other pre-built floors are available in the Webots objects library. We will now delete the RectangleArena node and add a simple floor that we will manually surround with walls later in this tutorial.</p>
+<p>默認的RectangleArena PROTO定義了一個固定在靜態環境上的簡單地板，即沒有Physics節點並且被牆壁包圍。 Webots對像庫中提供了其他預建樓層。現在，我們將刪除RectangleArena節點，並添加一個簡單的地板，在本教程的後面部分將用牆手動將其包圍。</p>
+<p><strong>Hands-on 2</strong>: To remove the RectangleArena, select it either in the 3D view or in the scene tree view with a left click and press the Delete key on your keyboard. Alternatively, you can right click on it in the 3D view and select Delete in the context menu (you can also use the context menu directly in the scene tree view). Select the TexturedBackroundLight node and click on the Add button. In the open dialog box, and choose PROTO nodes (Webots Projects) / objects / floors / Floor (Solid)</p>
+<p>動手操作2：要刪除RectangleArena，請在3D視圖或場景樹視圖中單擊鼠標左鍵將其選中，然後按鍵盤上的Delete鍵。或者，可以在3D視圖中右鍵單擊它，然後在上下文菜單中選擇“刪除”（也可以直接在場景樹視圖中使用上下文菜單）。選擇TexturedBackroundLight節點，然後單擊“添加”按鈕。在打開的對話框中，然後選擇PROTO節點（Webots項目）/對象/ Floors / Floor（實心）</p>
+<p> The newly added Floor PROTO has a default size of 10mx10m, but it is possible to adjust its size, its position and texture by changing the corresponding fields.</p>
+<p>新添加的Floor PROTO的默認大小為10mx10m，但是可以通過更改相應的字段來調整其大小，位置和紋理。</p>
+<p><strong>Hands-on 3</strong>: In the scene tree view select and expand the Floor. Modify the size field and set it to {1, 1} to resize it to 1mx1m.</p>
+<p>動手＃3：在場景樹視圖中，選擇並展開“地板”。修改大小字段並將其設置為{1，1}以將其大小調整為1m x 1m。</p>
+<p> The Solid Node</p>
+<p>實體節點</p>
+<p>This subsection introduces the most important base node in Webots: the <a href="https://cyberbotics.com/doc/reference/solid">Solid</a> node, from which many other nodes derive.</p>
+<p>本小節介紹了Webots中最重要的基礎節點：Solid節點，許多其他節點都來自Solid節點。</p>
+<p></p>
 <p>40723213          杜玗宸</p>
 <p>40723215          杜彥霆</p>
 <p>40723218          林志豪</p>

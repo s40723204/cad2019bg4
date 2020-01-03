@@ -680,6 +680,20 @@
 <p>Now, only items that are taken into account by the physics engine will be display, and the display is color-coded. <br/>現在，將僅顯示物理引擎考慮的項目，並且該顯示使用顏色編碼。</p>
 <p></p>
 <p><span>40723245          蔡育灃</span></p>
+<p>It is very important to always do this, and specially when your dynamic model doesn't behave as expected, in order to quickly debug the model. Similarly, always look at the scene hierarchy during simulation: dynamically enabled objects should display a ball-bounding icon on the right-hand side of their name.</p>
+<p>始終執行此操作非常重要，尤其是在動態模型無法按預期運行時，為了快速調試模型，尤其如此。同樣，在仿真過程中請始終查看場景層次：動態啟用的對象應在其名稱的右側顯示一個球形圖標。</p>
+<p><br/>Finally, we need to prepare the robot so that we can easily attach a gripper to it, or easily attach the robot to a mobile platform (for instance). Two dynamically enabled shapes can be rigidly attached to each other in two different ways:</p>
+<p><br/>最後，我們需要準備機器人，以便我們可以輕鬆地將抓取器連接到它，或輕鬆地將機器人連接到移動平台（例如）。可以通過兩種不同的方式將兩個動態啟用的形狀嚴格地彼此附加：</p>
+<p><br/>• by grouping them: select the shapes, then [Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; Group selected shapes].<br/>• by attaching them via a force/torque sensor: a force torque sensor can also act as a rigid link between two separate dynamically enabled shapes.</p>
+<p><br/>•通過對它們進行分組：選擇形狀，然後選擇[菜單欄-&gt;編輯-&gt;分組/合併-&gt;對選定形狀進行分組]。<br/>•通過力/扭矩傳感器進行連接：力扭矩傳感器還可以充當兩個單獨的動態啟用形狀之間的剛性鏈接。</p>
+<p><br/>In our case, only option 2 is of interest. We create a force/torque sensor with [Menu bar --&gt; Add --&gt; Force sensor], then move it to the tip of the robot, then attach it to object robot_link_dyn6. We change its size and visual appearance appropriately (a red force/torque sensor is often perceived as an optional attachment point, check the various robot models available). We also change its name to robot_attachment:</p>
+<p><br/>在我們的情況下，只有選項2是有意義的。我們使用[菜單欄-&gt;添加-&gt;力傳感器]創建一個力/扭矩傳感器，然後將其移動到機器人的尖端，然後將其附加到對象robot_link_dyn6。我們會適當地更改其尺寸和外觀（紅色力/扭矩傳感器通常被視為可選的連接點，請檢查可用的各種機器人型號）。我們還將其名稱更改為robot_attachment：</p>
+<p><br/>Now we drag a gripper model into the scene, keep it selected, then control-click the attachment force sensor, then click the Assembling/disassembling toolbar button. The gripper goes into place:</p>
+<p><br/>現在，我們將抓手模型拖到場景中，使其保持選中狀態，然後按住Control鍵單擊並單擊附著力傳感器，然後單擊“裝配/拆卸”工具欄按鈕。夾持器到位：</p>
+<p><br/>The gripper knew how to attach itself because it was appropriately configured during its model definition. We now also need to properly configure the robot model, so that it will know how to attach itself to a mobile base for instance. We select the robot model, then click Assembling in the object common properties. Set an empty string for 'Parent' match values, then click Set matrix. This will memorize the current base object's local transformation matrix, and use it to position/orient itself relative to the mobile robot's attachment point. To verify that we did things right, we drag the model Models/robots/mobile/KUKA Omnirob.ttm into the scene. Then we select our robot model, then control-click one of the attachment points on the mobile platform, then click the Assembling/disassembling toolbar button. Our robot should correctly place itself on top of the mobile robot:</p>
+<p><br/>抓具知道如何附加自身，因為它在模型定義期間進行了適當的配置。現在，我們還需要正確配置機器人模型，以便它將知道如何將自己附加到移動基座上。我們選擇機器人模型，然後在對象公共屬性中單擊“組裝”。為“父項”匹配值設置一個空字符串，然後單擊“設置矩陣”。這將記住當前基礎對象的局部轉換矩陣，並使用它相對於移動機器人的附著點定位/定向。為了驗證我們做的正確，我們將模型Models / robots / mobile / KUKA Omnirob.ttm拖到場景中。然後，我們選擇機器人模型，然後在移動平台上按住Control鍵並單擊其中一個附接點，然後單擊“組裝/拆卸”工具欄按鈕。我們的機器人應該正確地將自己放置在移動機器人的頂部：</p>
+<p><br/>Now we could add additional items to our robot, such as sensors for instance. At some point we might also want to attach embedded scripts to our model, in order to control its behaviour or configure it for various purposes. In that case, make sure to understand how object handles are accessed from embedded scripts. We can also control/access/interface our model from a plugin, from a remote API client, from a ROS node, from a BlueZero node, or from an add-on.<br/>Now we make sure we have reverted the changes done during robot and gripper attachment, we collapse the hierarchy tree of our robot model, select the base of our model, then save it with [Menu bar --&gt; File --&gt; Save model as...]. If we saved it in the model folder, then the model will be available in the model brower.</p>
+<p><br/>現在，我們可以向機器人添加其他項目，例如傳感器。在某些時候，我們可能還希望將嵌入式腳本附加到我們的模型中，以便控制其行為或出於各種目的對其進行配置。在這種情況下，請確保了解如何從嵌入式腳本訪問對象句柄。我們還可以通過插件，遠程API客戶端，ROS節點，BlueZero節點或附加組件來控制/訪問/接口模型。<br/>現在，確保已恢復在機械手和抓爪安裝過程中所做的更改，我們折疊了機械手模型的層次樹，選擇了模型的基礎，然後使用[菜單欄-&gt;文件-&gt;將模型另存為...]。如果我們將其保存在模型文件夾中，則模型將在模型瀏覽器中可用。</p>
 <h4 id="title-content">Webots User Guide</h4>
 <p>40723201          吳沛汶</p>
 <p>40723204          邱倚瀅</p>
@@ -712,7 +726,15 @@
 <p>physics 物理<br/>boundingObject<br/>children 孩子們<br/>geometry 幾何<br/>Solid 固體<br/>Physics 物理<br/>USE BALL_GEOMETRY 使用BALL_GEOMETRY<br/>Shape 形狀<br/>DEF BALL_GEOMETRY Sphere DEF BALL_GEOMETRY球體</p>
 <p>DEF-USE mechanism applied on the Shape node of a Solid.<br/>Hands-on #7: Create a second ball with the same parameters but using the Shape node (rather than the Sphere node directly) for the DEF-USE mechanism.</p>
 <p>在實體的“形狀”節點上應用的DEF-USE機制。<br/>動手練習7：使用DEF-USE機制的Shape節點（而不是直接使用Sphere節點）創建具有相同參數的第二個球。</p>
-<p><span>40723245          蔡育灃</span></p><h1>M.A.L</h1>
+<p><span>40723245          蔡育灃</span></p>
+<p><span>Add Walls<br/>In order to verify your progression, implement by yourself four walls to surround the environment. The walls have to be defined statically to the environment. To understand the difference between static and dynamic, let's take a defined object (the ball) above the ground. If the Physics node is NULL, it will remain frozen in the air during the simulation (static case). If the physics field contains a Physics nodes, it will fall under the effect of gravity (dynamic case).</span></p>
+<p><span><br/>添加牆<br/>為了驗證您的進度，請自己實施四堵牆以包圍環境。必鬚根據環境靜態定義牆壁。要了解靜態和動態之間的區別，我們將定義的物體（球）放在地面上方。如果“物理”節點為NULL，則在仿真過程中它將保持凍結狀態（靜態情況）。如果物理場包含“物理”節點，則它將受重力作用（動態情況）。</span></p>
+<p><span><br/>Use as much as possible the DEF-USE mechanism at the Shape level rather than at the Geometry level. Indeed it's more convenient to add an intermediate Shape node in the boundingObject field of the Solid node. The best Geometry primitive to implement the walls is the Box node. Only one Shape has to be defined for all the walls. The expected result is shown in this figure.</span></p>
+<p><span><br/>在Shape級別而不是Geometry級別，盡可能使用DEF-USE機制。實際上，在Solid節點的boundingObject字段中添加中間Shape節點更為方便。實現牆的最佳幾何原語是Box節點。所有牆壁僅需定義一個形狀。預期結果如圖所示</span></p>
+<p><span><br/>Hands-on #8: Add four walls without physics and using only one definition of the Shape node.</span></p>
+<p><span><br/>實際操作＃8：添加四面牆，無需物理操作，僅使用“形狀”節點的一個定義。</span></p>
+<p><span><br/>Solution: World File<br/>To compare your world with the solution, go to your files and find the folder named "my_first_simulation" created in Tutorial 1, then go to the "worlds" folder and open with a text editor the right world. This solution as the others is located in the solution directory.</span></p>
+<p><span><br/>解決方案：世界文件<br/>要將您的世界與解決方案進行比較，請轉到文件，找到在教程1中創建的名為“ my_first_simulation”的文件夾，然後轉到“ worlds”文件夾，並使用文本編輯器打開正確的世界。與其他解決方案一樣，該解決方案位於解決方案目錄中。</span></p><h1>M.A.L</h1>
 <p></p>
 <p><span> ☑出席      ☒缺席</span></p>
 <table style="width: 681px;">
