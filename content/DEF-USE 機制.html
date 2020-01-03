@@ -154,19 +154,37 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content"> <a href='Week.html'>Next</a> >> Week<br /><h1>Member</h1>
-<p><a href="https://s40723201.github.io/cad2019/content/index.html">40723201</a>      吳沛汶</p>
-<p><a href="https://s40723204.github.io/cad2019/content/index.html">40723204</a>      邱倚瀅</p>
-<p><a href="https://s40723213.github.io/cad2019/content/index.html">40723213</a>      杜玗宸</p>
-<p><a href="https://s40723215.github.io/cad2019">40723215</a>      杜彥霆</p>
-<p><a href="https://s40723218.github.io/cad2019/content/index.html">40723218</a>      林志豪</p>
-<p><a href="https://s40723219.github.io/cad2019/content/index.html">40723219</a>      林承治</p>
-<p><a href="https://s40723237.github.io/cad2019/content/index.html">40723237</a>      黃俊翔 </p>
-<p><a href="https://s40723242.github.io/cad2019/">40723242</a>      趙子德</p>
-<p><a href="https://s40723243.github.io/cad2019/content/index.html">40723243</a>      劉子源  </p>
-<p><a href="https://s40723245.github.io/cad2019/content/index.html">40723245</a>      蔡育灃</p>
-<p></p>
-<br /> <a href='Week.html'>Next</a> >> Week</div>
+    <div id="tipue_search_content">DEF-USE Mechanism << <a href='DEF-USE Mechanism.html'>Previous</a> <a href='M.A.L.html'>Next</a> >> M.A.L<br /><h1>DEF-USE 機制</h1>
+<p>The <strong>DEF-USE mechanism</strong> allows to define a node in one place and to reuse that definition elsewhere in the scene tree. This is useful to avoid the duplication of identical nodes in world files. Moreover, it also allows users to modify several objects at the same time. Here is how it works: first a node is labeled with a DEF string. Then copies of this node can be reused elsewhere with the USE keyword. Only the fields of the DEF node can be edited, the fields of the USE inherit from the DEF node and cannot be changed. This mechanism is dependent on the order of the nodes in the world file. A DEF node should be defined before any corresponding USE node.</p>
+<p><span> </span></p>
+<p><strong>DEF-USE </strong><strong>機制</strong>允許在一個位置定義節點，並在場景樹的其他位置重用該定義。這對於避免世界檔中相同節點的重複非常有用。此外，它還允許使用者同時修改多個物件。下面是它的工作原理：首先，節點用<span> DEF </span>字串標記。然後，此節點的副本可以使用<span> USE </span>關鍵字在其他地方重用。只能編輯<span> DEF </span>節點的欄位，<span>USE </span>的欄位從<span> DEF </span>節點繼承，不能更改。此機制取決於世界檔中節點的順序。應在任何相應的<span> USE </span>節點之前定義<span> DEF </span>節點。</p>
+<p>The two <span><a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a></span> definitions that we have used earlier to define the ball, are redundant. We will now merge these two <span><a href="https://cyberbotics.com/doc/reference/sphere">Spheres</a></span> into only once using the DEF-USE mechanism.</p>
+<p> </p>
+<p><span><a href="https://cyberbotics.com/doc/reference/sphere"> </a></span>我們之前用於定義球的兩個球體定義是多餘的。現在，我們將使用<span> DEF-USE </span>機制僅將這兩個<span><a href="https://cyberbotics.com/doc/reference/sphere"><span>球體</span></a></span>合併為一次。</p>
+<p><strong>Hands-on #6</strong>: Select the first <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> node (the child of the <a href="https://cyberbotics.com/doc/reference/shape">Shape</a>) in the scene tree view. The <a href="https://cyberbotics.com/doc/guide/the-scene-tree#field-editor">field editor</a> of the scene tree view allows you to enter the DEF string.</p>
+<p> </p>
+<p><strong>動手</strong>#6：在場景樹狀檢視中選擇第一個<a href="https://cyberbotics.com/doc/reference/sphere"><span>球體</span></a>節點（<a href="https://cyberbotics.com/doc/reference/shape"><span>形狀</span></a>子節點）。 <a href="https://cyberbotics.com/doc/guide/the-scene-tree#field-editor"> </a>場景樹狀檢視的欄位編輯器允許您輸入<span> DEF </span>字串。</p>
+<ol>
+<li>Enter BALL_GEOMETRYin this field.</li>
+<li>在此欄位中輸入BALL_GEOMETRY。</li>
+<li>Select the boundingObjectfield (containing the second <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> node), and empty it by right clicking the field in the scene tree and choosing the Delete entry in the context menu that pops up.</li>
+<li>選擇邊界物件欄位（包含第二個 <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> 節點），然後通過按右鍵場景樹中的欄位並在彈出的內容功能表中選擇"刪除"條目來清空該欄位。</li>
+<li>Then, select the boundingObjectfield and click on the Add button, and select the USE / BALL_GEOMETRY in the dialog box.</li>
+<li>然後，選擇"邊界物件<span>"</span>欄位並按一下"添加<span>"</span>按鈕，然後在對話方塊中選擇"使用<span>/BALL_GEOMETRY"</span>。</li>
+<li>The result is shown in <a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#def-use-mechanism-on-the-sphere-node-called-ball_geometry">this figure</a>.</li>
+<li>結果如下<a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#def-use-mechanism-on-the-sphere-node-called-ball_geometry"><span>圖</span></a>所示。</li>
+</ol>
+<p><span>40723242          趙子德</span></p>
+<p><span>40723243          劉子源</span></p>
+<p>Now, changing the radius field of the first Sphere node also modifies its boundingObject.<br/>現在，更改第一個Sphere節點的半徑字段也會修改其boundingObject。</p>
+<p>For convenience, the boundingObject field accepts also the Shape node (rather than the Sphere node directly). It would be also possible to use the same DEF-USE mechanism at the Shape level as shown in this figure.<br/>為了方便起見，boundingObject字段還接受Shape節點（而不是直接接受Sphere節點）。如圖所示，也可以在Shape級別使用相同的DEF-USE機制。</p>
+<p>For now the greatest benefit is being able to also use this Shape directly for graphical purposes. Later this mechanism will turn out to be very useful for some sensors.<br/>到目前為止，最大的好處就是也可以直接將此Shape用於圖形目的。後來，對於某些傳感器，該機制將變得非常有用。</p>
+<p>on the Sphere node called BALL_GEOMETRY.<br/>在名為BALL_GEOMETRY的Sphere節點上。</p>
+<p>physics 物理<br/>boundingObject<br/>children 孩子們<br/>geometry 幾何<br/>Solid 固體<br/>Physics 物理<br/>USE BALL_GEOMETRY 使用BALL_GEOMETRY<br/>Shape 形狀<br/>DEF BALL_GEOMETRY Sphere DEF BALL_GEOMETRY球體</p>
+<p>DEF-USE mechanism applied on the Shape node of a Solid.<br/>Hands-on #7: Create a second ball with the same parameters but using the Shape node (rather than the Sphere node directly) for the DEF-USE mechanism.</p>
+<p>在實體的“形狀”節點上應用的DEF-USE機制。<br/>動手練習7：使用DEF-USE機制的Shape節點（而不是直接使用Sphere節點）創建具有相同參數的第二個球。</p>
+<p><span>40723245          蔡育灃</span></p>
+<br />DEF-USE Mechanism << <a href='DEF-USE Mechanism.html'>Previous</a> <a href='M.A.L.html'>Next</a> >> M.A.L</div>
         
     <!-- footer -->
       <div class="container">
