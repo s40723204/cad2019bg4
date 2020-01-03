@@ -625,6 +625,37 @@
 <p>40723237          黃俊翔</p>
 <p><span>40723242          趙子德</span></p>
 <p><span>40723243          劉子源</span></p>
+<p>Model definition<br/>型號定義</p>
+<p>Now we are ready to define our model. <br/>現在我們準備定義模型了。</p>
+<p>We start by building the model herarchy:<br/>我們從建立模型層次結構開始：</p>
+<p>we attach the last dynamic robot link (robot_link_dyn6) to its corresponding joint (robot_joint6) by selecting robot_link_dyn6, then control-selecting robot_joint6, then [Menu bar --&gt; Edit --&gt; Make last selected object parent].<br/>通過選擇robot_link_dyn6，然後控制選擇robot_joint6，然後選擇[菜單欄-&gt;編輯-&gt;創建最後一個選定的對象，將最後一個動態機器人鏈接（robot_link_dyn6）附加到其相應的關節（robot_joint6）</p>
+<p>We could also have done this step by simply dragging object robot_link_dyn6 onto robot_link6 in the scene hierarchy.<br/>我們還可以通過簡單地將對象robot_link_dyn6拖到場景層次結構中的robot_link6上來完成此步驟。</p>
+<p>We go on by now attaching robot_joint6 to robot_link_dyn5, and so on, until arrived at the base of the robot. <br/>現在，我們將robot_joint6附加到robot_link_dyn5上，依此類推，直到到達機器人的底部。</p>
+<p>We now have following scene hierarchy:<br/>現在，我們具有以下場景層次結構：</p>
+<p>It is nice and more logical to have a simple name for the model base, since the model base will also represent the model itself.<br/>為模型庫起一個簡單的名字是很好而且更合乎邏輯的，因為模型庫也將代表模型本身。</p>
+<p>So we rename robot to robot_visibleBase, and robot_dyn to robot.<br/>因此，我們將robot重命名為robot_visibleBase，並將robot_dyn重命名為robot。</p>
+<p>Now we select the base of the hierarchy tree (i.e. object robot) and in the object common properties we enable Object is model base. We also enable Object/model can transfer or accept DNA.<br/>現在我們選擇層次結構樹的基礎（即對像機械手），並在對象公共屬性中啟用``對像是模型基礎''。我們還使對象/模型可以轉移或接受DNA。</p>
+<p>A model bounding box appeared, encompassing the whole robot. <br/>出現了一個模型包圍盒，包圍了整個機器人。</p>
+<p>The bounding box however appears to be too large: this is because the bounding box also encompasses the invisible items, such as the joints.<br/>但是，邊界框似乎太大：這是因為邊界框還包含不可見的項，例如關節。</p>
+<p>We could do the same procedure for all invisible items in our model.<br/>我們可以對模型中的所有不可見項執行相同的過程。</p>
+<p>This is also a useful option in order to also exclude large sensors or other items from the model bounding box. We now have following situation:<br/>這也是一個有用的選項，可以將大型傳感器或其他項目也排除在模型邊界框之外。我們現在有以下情況：</p>
+<p>We now protect our model from accidental modification. <br/>現在，我們保護模型免受意外修改。</p>
+<p>We select all visible objects in the robot, then enable Select base of model instead: if we now click a visible link in the scene, the base of the robot will be selected instead.<br/>我們選擇機器人中的所有可見對象，然後啟用“選擇模型的基礎”：如果現在單擊場景中的可見鏈接，則會改為選擇機器人的基礎。</p>
+<p>This allows us to manipulate the model as if it was a single object. We can still select visible objects in the robot via control-shift-clicking in the scene, or by selecting the object in the scene hierarchy. <br/>這使我們可以像對待單個對像一樣操作模型。我們仍然可以通過按住Shift鍵並單擊場景或在場景層次中選擇對象來選擇機器人中的可見對象。</p>
+<p>We now put the robot into a correct default position/orientation. First, we save current scene as a reference (e.g. if at a later stage we need to import CAD data that have the same orientation at the curent robot). <br/>現在，我們將機器人置於正確的默認位置/方向。首先，我們將當前場景保存為參考（例如，如果稍後需要在當前機器人上導入方向相同的CAD數據）。</p>
+<p>Then we select the model and modify its position/orientation appropriately. It is considered good practice to position the model (i.e. its base object) at X=0 and Y=0.<br/>然後，我們選擇模型並適當修改其位置/方向。將模型（即其基礎對象）定位在X = 0和Y = 0處被認為是一種好習慣。</p>
+<p>Then we select the model and modify its position/orientation appropriately.<br/>然後，我們選擇模型並適當修改其位置/方向。</p>
+<p>It is considered good practice to position the model (i.e. its base object) at X=0 and Y=0.<br/>將模型（即其基礎對象）定位在X = 0和Y = 0處被認為是一種好習慣。</p>
+<p>We now run the simulation: the robot will collapse, since the joints are not controlled by default.<br/>現在我們運行模擬：由於默認情況下關節不受控制，因此機器人將崩潰。</p>
+<p>When we added the joints in the previous stage, we created joints in force/torque mode, but their motor or controller was disabled (by default).<br/>在上一階段添加關節時，我們以力/扭矩模式創建了關節，但其電動機或控制器已禁用（默認情況下）。</p>
+<p>We can now adjust our joints to our requirements. In our case, we want a simple PID controller for each one of them.<br/>現在，我們可以根據需要調整關節。在我們的案例中，我們希望為每個控制器都提供一個簡單的PID控制器。</p>
+<p>In the joint dynamic properties, we click Motor enabled and adjust the maximum torque. <br/>在關節動態屬性中，單擊“啟用電機”並調整最大扭矩。</p>
+<p>We then click Control loop enabled and select Position control (PID). We now run the simulation again: the robot should hold its position. <br/>然後，單擊啟用控制環，然後選擇位置控制（PID）。現在，我們再次運行仿真：機器人應保持其位置。</p>
+<p>Try to switch the current physics engine to see if the behaviour is consistent across all supported physics engines. <br/>嘗試切換當前的物理引擎，以查看行為在所有受支持的物理引擎之間是否一致。</p>
+<p>You can do this via the appropriate toolbar button, or in the general dynamics properties.<br/>您可以通過相應的工具欄按鈕或在常規動力學屬性中執行此操作。</p>
+<p>During simulation, we now verify the scene dynamic content via the Dynamic content visualization &amp; verification toolbar button.<br/>在仿真過程中，我們現在通過“動態內容可視化和驗證”工具欄按鈕來驗證場景動態內容。</p>
+<p>Now, only items that are taken into account by the physics engine will be display, and the display is color-coded. <br/>現在，將僅顯示物理引擎考慮的項目，並且該顯示使用顏色編碼。</p>
+<p></p>
 <p><span>40723245          蔡育灃</span></p>
 <h4 id="title-content">Webots User Guide</h4>
 <p>40723201          吳沛汶</p>
@@ -636,6 +667,13 @@
 <p>40723237          黃俊翔</p>
 <p><span>40723242          趙子德</span></p>
 <p><span>40723243          劉子源</span></p>
+<p>Now, changing the radius field of the first Sphere node also modifies its boundingObject.<br/>現在，更改第一個Sphere節點的半徑字段也會修改其boundingObject。</p>
+<p>For convenience, the boundingObject field accepts also the Shape node (rather than the Sphere node directly). It would be also possible to use the same DEF-USE mechanism at the Shape level as shown in this figure.<br/>為了方便起見，boundingObject字段還接受Shape節點（而不是直接接受Sphere節點）。如圖所示，也可以在Shape級別使用相同的DEF-USE機制。</p>
+<p>For now the greatest benefit is being able to also use this Shape directly for graphical purposes. Later this mechanism will turn out to be very useful for some sensors.<br/>到目前為止，最大的好處就是也可以直接將此Shape用於圖形目的。後來，對於某些傳感器，該機制將變得非常有用。</p>
+<p>on the Sphere node called BALL_GEOMETRY.<br/>在名為BALL_GEOMETRY的Sphere節點上。</p>
+<p>physics 物理<br/>boundingObject<br/>children 孩子們<br/>geometry 幾何<br/>Solid 固體<br/>Physics 物理<br/>USE BALL_GEOMETRY 使用BALL_GEOMETRY<br/>Shape 形狀<br/>DEF BALL_GEOMETRY Sphere DEF BALL_GEOMETRY球體</p>
+<p>DEF-USE mechanism applied on the Shape node of a Solid.<br/>Hands-on #7: Create a second ball with the same parameters but using the Shape node (rather than the Sphere node directly) for the DEF-USE mechanism.</p>
+<p>在實體的“形狀”節點上應用的DEF-USE機制。<br/>動手練習7：使用DEF-USE機制的Shape節點（而不是直接使用Sphere節點）創建具有相同參數的第二個球。</p>
 <p><span>40723245          蔡育灃</span></p><h1>M.A.L</h1>
 <p></p>
 <p><span> ☑出席      ☒缺席</span></p>
