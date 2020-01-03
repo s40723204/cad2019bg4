@@ -182,6 +182,41 @@ img.add_border {
 <p>請注意，凸包在現階段如何對我們沒有幫助。我們決定首先使用網格抽取功能，然後運行兩次該功能，以將三角形的數量總共除以50。完成後，我們提取簡化形狀的內部並將其丟棄。我們最終得到的網格總共包含2'660個三角形（原始導入的網格包含了136'000個三角形！）。形狀包含的三角形/頂點的數量可以在形狀幾何對話框中看到。對於整個機器人模型，2'660三角形是極少的三角形，因此視覺外觀可能會因此受到影響。</p>
 <p> </p>
 <p>40723213          杜玗宸</p>
+<p><strong><span>翻譯</span>Building a clean model tutorial</strong></p>
+<p><span>At this stage we can start to divide the robot into separate links (remember, we</span></p>
+<p><span>currently have only a single shape for the whole robot). You can do this in two different ways:</span></p>
+<p>在這一階段，我們可以開始將機器人劃分為單獨的鏈接（請記住，</p>
+<p>目前整個機器人只有一個形狀）。 您可以通過兩種不同的方式執行此操作：</p>
+<ul>
+<li><strong>Automatic mesh division:</strong>this function, which was already described in previous section, will inspect the shape and generate a new shape for all elements that are not linked together via a common edge. This does not always work, but is always worth a try. The function can be accessed with [Menu bar --&gt; Edit --&gt; Grouping/merging --&gt; Divide selected shapes].</li>
+<li>自動網格劃分：上一小節已經描述了此功能，它將檢查形狀並為未通過公共邊鏈接在一起的所有元素生成新形狀。 這並不總是有效，但總是值得嘗試的。 可以通過<span>[</span>菜單欄<span>-&gt;</span>編輯<span>-&gt;</span>分組<span>/</span>合併<span>-&gt;</span>分割所選形狀<span>]</span>訪問該功能。</li>
+<li><strong>Manual mesh division:</strong>via the the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/triangleEditMode.htm">triangle edit mode</a></span>, you can manually select the triangles than logically belong together, then click <strong>Extract shape</strong>. This will generate a new shape in the scene. Delete the selected triangles after that operation.</li>
+<li>手動網格劃分：通過三角形編輯模式，您可以手動選擇邏輯上不屬於邏輯的三角形，然後單擊“提取形狀”。 這將在場景中生成新形狀。 完成該操作後，刪除選定的三角形。</li>
+</ul>
+<p>In the case of our mesh, method 1 worked fine:</p>
+<p><span>對於我們的網格，方法1可以正常工作：</span></p>
+<p><img alt="" height="312" src="http://www.coppeliarobotics.com/helpFiles/en/images/modelTut5.jpg" width="640"/></p>
+<p>[Divided mesh]</p>
+<p></p>
+<p>Now, we could further refine/simplify individual shapes. Sometimes also, a shape might look better if its convex hull is used instead. Othertimes, you will have to use several of above's described techniques iteratively, in order to obtain the desired result. Take for instance following mesh:</p>
+<p>現在，我們可以進一步細化/簡化單個形狀。 有時，如果改用凸包，形狀可能會看起來更好。 有時，您將不得不反複使用上述幾種技術，以獲得所需的結果。 以以下網格為例：</p>
+<p><img alt="" height="300" src="http://www.coppeliarobotics.com/helpFiles/en/images/modelTut6.jpg" width="151"/></p>
+<p>[Imported mesh]</p>
+<p></p>
+<p>The problem with above's shape is that we cannot simplify it nicely, because of the holes it contains. So we have to go the more complicated way via the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/shapeEditModes.htm">shape edit mode</a></span>, where we can extract individual elements that logically belong to the same convex sub-entity. This process can take several iterations: we first extract 3 approximate convex elements. For now, we ignore the triangles that are part of the two holes. While editing a shape in the shape edit mode, it can be convenient to switch the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/layerSelectionDialog.htm">visibility layers</a></span>, in order to see what is covered by other scene items.</p>
+<p>上面形狀的問題是，由於其中包含孔，我們無法很好地簡化它。 因此，我們必須通過形狀編輯模式進行更複雜的處理，在該模式下，我們可以提取邏輯上屬於同一凸形子實體的單個元素。 此過程可能需要進行多次迭代：我們首先提取3個近似凸元素。 現在，我們忽略作為兩個孔的一部分的三角形。 在形狀編輯模式下編輯形狀時，可以方便地切換可見性圖層，以查看其他場景項所覆蓋的內容。</p>
+<p><img alt="" height="303" src="http://www.coppeliarobotics.com/helpFiles/en/images/modelTut7.jpg" width="640"/></p>
+<p>[Step 1]</p>
+<p></p>
+<p>We end up with a toal of three shapes, but two of them will need further improvement. Now we can erase the triangles that are part of the holes. Finally, we extract the convex hull individually for the 3 shapes, then merge them back together with [Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; merge selected shapes]:</p>
+<p>我們最終得到三個形狀的總和，但是其中兩個將需要進一步改進。 現在我們可以擦除作為孔的一部分的三角形。 最後，我們分別提取3種形狀的凸包，然後將其與[菜單欄-&gt;編輯-&gt;分組/合併-&gt;合併所選形狀]合併在一起：</p>
+<p> <img alt="" height="303" src="http://www.coppeliarobotics.com/helpFiles/en/images/modelTut7.jpg" width="640"/></p>
+<p>[Step 2]</p>
+<p></p>
+<p>In CoppeliaSim, we can enable/disable edge display for each shape. We can also specify an angle that will be taken into account for the edge display. A similar parameter is the <strong>shading angle</strong>, that dictates how facetted the shape will display. Those parameters, and a few others such as the shape <strong>color</strong>, can be adjusted in the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/simulationPropertiesDialog.htm">shape properties</a></span>. Remember that <span><a href="http://www.coppeliarobotics.com/helpFiles/en/shapes.htm">shapes come in various flavours</a></span>. In this tutorial we have only dealt with simple shapes up to now: a simple shape has a single set of visual attributes (i.e. one color, one shading angle, etc.). If you merge two shapes, then the result will be a simple shape. You can also group shapes, in which case, each shape will retain its visual attributes.</p>
+<p>In next step, we can merge elements that logically belong together (if they are part of the same rigid element, and if they have the same visual attributes). Then we change the visual attributes of the various elements. The easiest ist to adjust a few shapes that have different colors and visual attributes, and if we name the color with a specific string, we can later easily programmatically change that color, also if the shape is part of a compound shape. Then, we select all the shapes that have the same visual attributes, then control-select the shape that was already adjusted, then click <strong>Apply to selection</strong>, once for the <strong>Colors</strong>, once for the <strong>other properties</strong>, in the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/shapeProperties.htm">shape properties</a></span>: this transfers all visual attributes to the selected shapes (including the color name if you provided one). </p>
+<p>在CoppeliaSim中，我們可以啟用/禁用每種形狀的邊緣顯示。我們還可以指定邊緣顯示時要考慮的角度。相似的參數是陰影角，它指示形狀將在多方面顯示。這些參數以及其他一些參數（例如形狀顏色）可以在形狀屬性中進行調整。請記住，形狀有多種風味。到目前為止，在本教程中，我們僅處理簡單的形狀：簡單的形狀具有一組視覺屬性（即一種顏色，一個陰影角度等）。如果合併兩個形狀，則結果將是一個簡單的形狀。您還可以對形狀進行分組，在這種情況下，每個形狀將保留其視覺屬性。</p>
+<p>在下一步中，我們可以合併邏輯上屬於一起的元素（如果它們屬於同一剛性元素，並且具有相同的視覺屬性）。然後，我們更改各種元素的視覺屬性。調整具有不同顏色和視覺屬性的幾種形狀的最簡便方法，如果我們使用特定的字符串來命名顏色，則以後可以輕鬆地以編程方式更改該顏色，即使該形狀是複合形狀的一部分。然後，我們選擇所有具有相同視覺屬性的形狀，然後控制選擇已調整的形狀，然後單擊“應用於選擇”，一次是“顏色”，一次是其他屬性，在形狀屬性中：這將轉移所有所選形狀的視覺屬性（如果提供的話，還包括顏色名稱）。</p>
 <p>40723215          杜彥霆</p>
 <p>40723218          林志豪</p>
 <p>40723219          林承治</p>
@@ -239,6 +274,19 @@ img.add_border {
 <p>本小節介紹了Webots中最重要的基礎節點：Solid節點，許多其他節點都來自Solid節點。</p>
 <p></p>
 <p>40723213          杜玗宸</p>
+<p><strong>翻譯Webots User Guide</strong></p>
+<p>A <a href="https://cyberbotics.com/doc/reference/solid">Solid</a> node represents a <strong>rigid body</strong>, that is a body in which deformation can be neglected. The distance between any two given points of a rigid body remains constant in time regardless of external forces exerted on it. For example a table, a robot finger phalanx or a wheel are rigid bodies. Soft bodies and articulated objects are not rigid bodies. For example, a rope, a tire, a sponge or an articulated robot arm are not rigid bodies. However, an articulated entity can be broken into several rigid bodies.</p>
+<p>The physics engine of Webots is designed for simulating rigid bodies only. An important step, when designing a simulation, is to break up the various entities into separate rigid bodies.</p>
+<p>To define a rigid body, you will have to create a <a href="https://cyberbotics.com/doc/reference/solid">Solid</a> node. Inside this node you will set up different sub-nodes corresponding to the characteristics of the rigid body. The following <a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#the-simplest-model-of-a-rigid-body-in-webots-having-a-graphical-representation-a-physical-bounding-object-and-being-in-the-dynamical-environment">figure</a> depicts a rigid body and its sub-nodes. The graphical representation of the <a href="https://cyberbotics.com/doc/reference/solid">Solid</a> node is defined by the <a href="https://cyberbotics.com/doc/reference/shape">Shape</a> nodes populating its children list. The collision bounds are defined in its boundingObject field. The graphical representation and the collision shape are often but not necessarily identical. Finally, the physics field defines if the object belongs to the dynamical or to the static environment. All these sub-nodes are optional, but the physics field needs the boundingObject to be defined.</p>
+<p><img alt="" height="293" src="https://s40723213.github.io/cad2019/images/%E6%93%B7%E5%8F%96.PNG" width="346"/></p>
+<p><span><span>The simplest model of a rigid body in Webots having a graphical representation, a physical bounding object and being in the dynamical environment.</span></span></p>
+<p>The Geometry box (in <a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#the-simplest-model-of-a-rigid-body-in-webots-having-a-graphical-representation-a-physical-bounding-object-and-being-in-the-dynamical-environment">this figure</a>) stands for any kind of geometrical primitive. In fact, it can be substituted by a <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a>, a <a href="https://cyberbotics.com/doc/reference/box">Box</a>, a <a href="https://cyberbotics.com/doc/reference/cylinder">Cylinder</a>, etc.</p>
+<p>實體節點表示剛體，即可以忽略變形的剛體。剛體上任意兩個給定點之間的距離在時間上保持恆定，而不管施加在其上的外力如何。例如，桌子，機械手指骨或輪子是剛體。軟體和關節物體不是剛體。例如，繩索，輪胎，海綿或關節式機械臂不是剛性體。但是，可以將一個鉸接的實體分解為幾個剛體。</p>
+<p><span>Webots</span>的物理引擎僅設計用於模擬剛體。設計仿真時，重要的一步是將各個實體分解為單獨的剛體。</p>
+<p>要定義剛體，您將必須創建一個實體節點。在此節點內，您將根據剛體的特性設置不同的子節點。下圖描繪了剛體及其子節點。實體節點的圖形表示由填充其子級列表的<span>Shape</span>節點定義。碰撞範圍在其<span>boundingObject</span>字段中定義。圖形表示和碰撞形狀通常但不一定相同。最後，物理字段定義對像是屬於動態環境還是屬於靜態環境。所有這些子節點都是可選的，但物理場需要定義<span>boundingObject</span>。</p>
+<p><img alt="" height="293" src="https://s40723213.github.io/cad2019/images/%E6%93%B7%E5%8F%96.PNG" width="346"/></p>
+<p><span>Webots</span>中剛體的最簡單模型，具有圖形表示，物理邊界對象並且處於動態環境中。</p>
+<p>幾何框（在此圖中）代表任何類型的幾何圖元。 實際上，它可以用球體，盒子，圓柱體等代替。</p>
 <p>40723215          杜彥霆</p>
 <p>40723218          林志豪</p>
 <p>40723219          林承治</p>
@@ -252,7 +300,8 @@ img.add_border {
 <p>physics 物理<br/>boundingObject<br/>children 孩子們<br/>geometry 幾何<br/>Solid 固體<br/>Physics 物理<br/>USE BALL_GEOMETRY 使用BALL_GEOMETRY<br/>Shape 形狀<br/>DEF BALL_GEOMETRY Sphere DEF BALL_GEOMETRY球體</p>
 <p>DEF-USE mechanism applied on the Shape node of a Solid.<br/>Hands-on #7: Create a second ball with the same parameters but using the Shape node (rather than the Sphere node directly) for the DEF-USE mechanism.</p>
 <p>在實體的“形狀”節點上應用的DEF-USE機制。<br/>動手練習7：使用DEF-USE機制的Shape節點（而不是直接使用Sphere節點）創建具有相同參數的第二個球。</p>
-<p><span>40723245          蔡育灃</span></p><br />week15 - 18 << <a href='week15 - 18.html'>Previous</a> <a href='M.A.L.html'>Next</a> >> M.A.L</div>
+<p><span>40723245          蔡育灃</span></p>
+<br />week15 - 18 << <a href='week15 - 18.html'>Previous</a> <a href='M.A.L.html'>Next</a> >> M.A.L</div>
         
     <!-- footer -->
       <div class="container">
