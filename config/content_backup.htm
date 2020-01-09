@@ -44,6 +44,11 @@
 <p>Solidworks :  功能局限性大，只是一個參數化建模，不能做變量化方程的設計，曲面建模較差，模具、限元、運動力學方面相比NX要差。</p>
 <p> NX :  導出的圖檔不利於尺寸參數二次修改，較複雜難上手。</p>
 <p><span>40723213               杜玗宸</span></p>
+<p><strong><span>Solidworks和NX差異:</span></strong></p>
+<p><strong><span></span></strong><span>Solidworks最大優點是操作簡單，新手易上手，其功能也滿足大部分公司設計所需，普及程度高，與其他程式互相導入導出的相容性也不錯。</span></p>
+<p><span>NX雖然操作難度比sw高了一些，但是網路上的教學影片也很多，最大特色在於曲面建模功能強大，編成也方便，只要不過於複雜都應付得來。</span></p>
+<p><span>NX繪圖練習:操作影片</span></p>
+<p><span><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/9ljncgWXTI0" width="560"></iframe></span></p>
 <p><span></span></p>
 <p><span>40723215               杜彥霆</span></p>
 <p><span></span></p>
@@ -539,7 +544,7 @@
 <p><span><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/Syi3X1j469Q" width="560"></iframe></span></p>
 <p><span></span></p>
 <p><span>40723213               杜玗宸</span></p>
-<p><span></span></p>
+<p><span><iframe allowfullscreen="allowfullscreen" height="314" src="//www.youtube.com/embed/x6BcOgigeTA" width="560"></iframe></span></p>
 <p><span>40723215               杜彥霆</span></p>
 <p><span></span></p>
 <p><span>40723218               林志豪</span></p>
@@ -642,10 +647,107 @@
 <p>請注意，凸包在現階段如何對我們沒有幫助。我們決定首先使用網格抽取功能，然後運行兩次該功能，以將三角形的數量總共除以50。完成後，我們提取簡化形狀的內部並將其丟棄。我們最終得到的網格總共包含2'660個三角形（原始導入的網格包含了136'000個三角形！）。形狀包含的三角形/頂點的數量可以在形狀幾何對話框中看到。對於整個機器人模型，2'660三角形是極少的三角形，因此視覺外觀可能會因此受到影響。</p>
 <p> </p>
 <p>40723213          杜玗宸</p>
+<p><strong><span>翻譯</span>Building a clean model tutorial</strong></p>
+<p><span>At this stage we can start to divide the robot into separate links (remember, we</span></p>
+<p><span>currently have only a single shape for the whole robot). You can do this in two different ways:</span></p>
+<p>在這一階段，我們可以開始將機器人劃分為單獨的鏈接（請記住，</p>
+<p>目前整個機器人只有一個形狀）。 您可以通過兩種不同的方式執行此操作：</p>
+<ul>
+<li><strong>Automatic mesh division:</strong>this function, which was already described in previous section, will inspect the shape and generate a new shape for all elements that are not linked together via a common edge. This does not always work, but is always worth a try. The function can be accessed with [Menu bar --&gt; Edit --&gt; Grouping/merging --&gt; Divide selected shapes].</li>
+<li>自動網格劃分：上一小節已經描述了此功能，它將檢查形狀並為未通過公共邊鏈接在一起的所有元素生成新形狀。 這並不總是有效，但總是值得嘗試的。 可以通過<span>[</span>菜單欄<span>-&gt;</span>編輯<span>-&gt;</span>分組<span>/</span>合併<span>-&gt;</span>分割所選形狀<span>]</span>訪問該功能。</li>
+<li><strong>Manual mesh division:</strong>via the the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/triangleEditMode.htm">triangle edit mode</a></span>, you can manually select the triangles than logically belong together, then click <strong>Extract shape</strong>. This will generate a new shape in the scene. Delete the selected triangles after that operation.</li>
+<li>手動網格劃分：通過三角形編輯模式，您可以手動選擇邏輯上不屬於邏輯的三角形，然後單擊“提取形狀”。 這將在場景中生成新形狀。 完成該操作後，刪除選定的三角形。</li>
+</ul>
+<p>In the case of our mesh, method 1 worked fine:</p>
+<p><span>對於我們的網格，方法1可以正常工作：</span></p>
+<p><img alt="" height="312" src="http://www.coppeliarobotics.com/helpFiles/en/images/modelTut5.jpg" width="640"/></p>
+<p>[Divided mesh]</p>
+<p></p>
+<p>Now, we could further refine/simplify individual shapes. Sometimes also, a shape might look better if its convex hull is used instead. Othertimes, you will have to use several of above's described techniques iteratively, in order to obtain the desired result. Take for instance following mesh:</p>
+<p>現在，我們可以進一步細化/簡化單個形狀。 有時，如果改用凸包，形狀可能會看起來更好。 有時，您將不得不反複使用上述幾種技術，以獲得所需的結果。 以以下網格為例：</p>
+<p><img alt="" height="300" src="http://www.coppeliarobotics.com/helpFiles/en/images/modelTut6.jpg" width="151"/></p>
+<p>[Imported mesh]</p>
+<p></p>
+<p>The problem with above's shape is that we cannot simplify it nicely, because of the holes it contains. So we have to go the more complicated way via the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/shapeEditModes.htm">shape edit mode</a></span>, where we can extract individual elements that logically belong to the same convex sub-entity. This process can take several iterations: we first extract 3 approximate convex elements. For now, we ignore the triangles that are part of the two holes. While editing a shape in the shape edit mode, it can be convenient to switch the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/layerSelectionDialog.htm">visibility layers</a></span>, in order to see what is covered by other scene items.</p>
+<p>上面形狀的問題是，由於其中包含孔，我們無法很好地簡化它。 因此，我們必須通過形狀編輯模式進行更複雜的處理，在該模式下，我們可以提取邏輯上屬於同一凸形子實體的單個元素。 此過程可能需要進行多次迭代：我們首先提取3個近似凸元素。 現在，我們忽略作為兩個孔的一部分的三角形。 在形狀編輯模式下編輯形狀時，可以方便地切換可見性圖層，以查看其他場景項所覆蓋的內容。</p>
+<p><img alt="" height="303" src="http://www.coppeliarobotics.com/helpFiles/en/images/modelTut7.jpg" width="640"/></p>
+<p>[Step 1]</p>
+<p></p>
+<p>We end up with a toal of three shapes, but two of them will need further improvement. Now we can erase the triangles that are part of the holes. Finally, we extract the convex hull individually for the 3 shapes, then merge them back together with [Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; merge selected shapes]:</p>
+<p>我們最終得到三個形狀的總和，但是其中兩個將需要進一步改進。 現在我們可以擦除作為孔的一部分的三角形。 最後，我們分別提取3種形狀的凸包，然後將其與[菜單欄-&gt;編輯-&gt;分組/合併-&gt;合併所選形狀]合併在一起：</p>
+<p> <img alt="" height="303" src="http://www.coppeliarobotics.com/helpFiles/en/images/modelTut7.jpg" width="640"/></p>
+<p>[Step 2]</p>
+<p></p>
+<p>In CoppeliaSim, we can enable/disable edge display for each shape. We can also specify an angle that will be taken into account for the edge display. A similar parameter is the <strong>shading angle</strong>, that dictates how facetted the shape will display. Those parameters, and a few others such as the shape <strong>color</strong>, can be adjusted in the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/simulationPropertiesDialog.htm">shape properties</a></span>. Remember that <span><a href="http://www.coppeliarobotics.com/helpFiles/en/shapes.htm">shapes come in various flavours</a></span>. In this tutorial we have only dealt with simple shapes up to now: a simple shape has a single set of visual attributes (i.e. one color, one shading angle, etc.). If you merge two shapes, then the result will be a simple shape. You can also group shapes, in which case, each shape will retain its visual attributes.</p>
+<p>In next step, we can merge elements that logically belong together (if they are part of the same rigid element, and if they have the same visual attributes). Then we change the visual attributes of the various elements. The easiest ist to adjust a few shapes that have different colors and visual attributes, and if we name the color with a specific string, we can later easily programmatically change that color, also if the shape is part of a compound shape. Then, we select all the shapes that have the same visual attributes, then control-select the shape that was already adjusted, then click <strong>Apply to selection</strong>, once for the <strong>Colors</strong>, once for the <strong>other properties</strong>, in the <span><a href="http://www.coppeliarobotics.com/helpFiles/en/shapeProperties.htm">shape properties</a></span>: this transfers all visual attributes to the selected shapes (including the color name if you provided one). </p>
+<p>在CoppeliaSim中，我們可以啟用/禁用每種形狀的邊緣顯示。我們還可以指定邊緣顯示時要考慮的角度。相似的參數是陰影角，它指示形狀將在多方面顯示。這些參數以及其他一些參數（例如形狀顏色）可以在形狀屬性中進行調整。請記住，形狀有多種風味。到目前為止，在本教程中，我們僅處理簡單的形狀：簡單的形狀具有一組視覺屬性（即一種顏色，一個陰影角度等）。如果合併兩個形狀，則結果將是一個簡單的形狀。您還可以對形狀進行分組，在這種情況下，每個形狀將保留其視覺屬性。</p>
+<p>在下一步中，我們可以合併邏輯上屬於一起的元素（如果它們屬於同一剛性元素，並且具有相同的視覺屬性）。然後，我們更改各種元素的視覺屬性。調整具有不同顏色和視覺屬性的幾種形狀的最簡便方法，如果我們使用特定的字符串來命名顏色，則以後可以輕鬆地以編程方式更改該顏色，即使該形狀是複合形狀的一部分。然後，我們選擇所有具有相同視覺屬性的形狀，然後控制選擇已調整的形狀，然後單擊“應用於選擇”，一次是“顏色”，一次是其他屬性，在形狀屬性中：這將轉移所有所選形狀的視覺屬性（如果提供的話，還包括顏色名稱）。</p>
 <p>40723215          杜彥霆</p>
 <p>40723218          林志豪</p>
 <p>40723219          林承治</p>
 <p>40723237          黃俊翔</p>
+<ul>
+<li><strong>respondable or non-respondable</strong>: a respondable shape will cause a collision reaction with other respondable shapes. They (and/or) their collider, will be influenced in their movement if they are dynamic. On the other hand, non-respondable shapes will not compute a collision response if they collide with other shapes.</li>
+</ul>
+<p> </p>
+<ul>
+<li><strong>可回應或不可回應</strong>：回應形狀會導致與其他可回應形狀發生碰撞反應。它們（和/或）碰撞器，如果他們是動態的，就會影響它們的運動。另一方面，如果不可回應的形狀與其他形狀碰撞，則它們不會計算碰撞回應。</li>
+</ul>
+<p>Above two points are illustrated <a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#staticAndRespondable">here</a>. Respondable shapes should be as simple as possible, in order to allow for a fast and stable simulation. A physics engine will be able to simulate following 5 types of shapes with various degrees of speed and stability:</p>
+<p> </p>
+<p>上圖所示。回應形狀應盡可能簡單，以便快速、穩定地模擬。物理引擎將能夠類比以下 5 種具有不同速度和穩定性的形狀：</p>
+<ul>
+<li><span><a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#pureShapes"><strong>Pure shapes</strong></a></span><strong>:</strong>a pure shape will be stable and handled very efficiently by the physics engine. The draw-back is that pure shapes are limited in geometry: mostly cuboids, cylinders and spheres. If possible, use those for items that are in contact with other items for a longer time (e.g. the feet of a humanoid robot, the base of a serial manipulator, the fingers of a gripper, etc.). Pure shapes can be created with [Menu bar --&gt; Add --&gt; Primitive shape].</li>
+</ul>
+<p> </p>
+<ul>
+<li><span><a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#pureShapes"><strong><span>純形狀</span></strong></a></span><strong>：</strong>純形狀將穩定，物理引擎處理效率很高。回拉是純形狀在幾何中是有限的：主要是立方體、圓柱體和球體。如果可能，將這些物品用於與其他物品接觸更長時間的物品（例如類人機器人的腳、串列操縱器的底座、夾持器的手指等）。可以使用 [功能表列 -- &gt; 添加 -gt; 原始形狀]創建純形狀。</li>
+</ul>
+<p> </p>
+<ul>
+<li><span><a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#pureShapes"><strong>Pure compound shapes</strong></a></span><strong>:</strong>a pure compound shape is a grouping of several pure shapes. It performs almost as well as pure shapes and shares similar properties. Pure compound shapes can be generated by grouping several pure shapes [Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; Group selected shapes].</li>
+</ul>
+<p> </p>
+<ul>
+<li><span><a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#pureShapes"><strong><span>純複合形狀</span></strong></a></span><strong>：</strong>純複合形狀是幾個純形狀的組合。它的性能幾乎與純形狀相同，並且具有相似的屬性。純複合形狀可以通過分組多個純形狀生成 <span>[</span>功能表條 -- &gt; 編輯 --&gt; 分組/合併 -- &gt; 組選定形狀]。</li>
+</ul>
+<p> </p>
+<ul>
+<li><span><a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#convexShapes"><strong>Convex shapes</strong></a></span>: a convex shape will be a little bit less stable and take a little bit more computation time when handled by the physics engine. It allows for a more general geometry (only requirement: it need to be convex) than pure shapes. If possible, use convex shapes for items that are sporadically in contact with other items (e.g. the various links of a robot). Convex shapes can be generated with [Menu bar --&gt; Add --&gt; Convex hull of selection] or with [Menu bar --&gt; Edit --&gt; Morph selection into convex shapes].</li>
+</ul>
+<p> </p>
+<ul>
+<li><span><a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#convexShapes"><strong><span>凸形形狀</span></strong></a></span>：當物理引擎處理時，凸形狀會稍微不穩定一點，並且需要多一點的計算時間。它允許更一般的幾何形狀（僅要求：它需要凸）而不是純形狀。如果可能，對偶爾與其他專案接觸的專案（例如機器人的各種連結）使用凸形形狀。可以使用 [功能表列 -- &gt; 添加 --gt; 選擇的凸包]或使用 [功能表列 -- &gt; 編輯 --&gt; 將選擇轉換為凸形形狀]生成凸形形狀。</li>
+</ul>
+<p> </p>
+<ul>
+<li><span><a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#convexShapes"><strong>Compound convex shapes, or convex decomposed shapes</strong></a></span>: a convex decomposed shape is a grouping of several convex shapes. It performs almost as well as convex shapes and shares similar properties. Convex decomposed shapes can be generated by grouping several convex shapes [Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; Group selected shapes], with [Menu bar --&gt; Add --&gt; Convex decomposition of selection...], or with [Menu bar --&gt; Edit --&gt; Morph selection into its convex decomposition...].</li>
+</ul>
+<p> </p>
+<ul>
+<li><span><a href="http://www.coppeliarobotics.com/helpFiles/en/designingDynamicSimulations.htm#convexShapes"><strong><span>複合凸形或凸分解形狀</span></strong></a></span>：凸分解形狀是多個凸形形狀的分組。它的性能幾乎與凸形狀一樣好，並且具有類似的屬性。可以通過對多個凸形形狀進行分組[功能表條 --&gt; 編輯 -- &gt; 分組/合併 -- &gt; 組選定形狀]生成，使用 [功能表列 -- &gt; 添加 --&gt; 選擇的凸分解...]，或者使用 [功能表列 -- &gt; 編輯 -- &gt; 變形選擇到其凸分解中...]。</li>
+</ul>
+<p> </p>
+<ul>
+<li><strong>Random shapes</strong>: a random shape is a shape that is not convex nor pure. It generally has poor performance (calculation speed and stability). Avoid using random shapes as much as possible.</li>
+</ul>
+<p> </p>
+<ul>
+<li><strong>隨機形狀</strong>：隨機形狀是不凸或純的形狀。它的性能通常較差（計算速度和穩定性）。儘量避免使用隨機形狀。</li>
+</ul>
+<p> </p>
+<p>So the order of preference would be: pure shapes, pure compound shapes, convex shapes, compound convex shapes, and finally random shapes. Make sure to also read <a href="http://www.coppeliarobotics.com/helpFiles/en/shapes.htm">this page</a>. In case of the robot we want to build, we will make the base of the robot as a pure cylinder, and the other links as convex or convex decomposed shapes.</p>
+<p> </p>
+<p>因此，偏好的順序是：純形狀、純複合形狀、凸形、複合凸形狀，最後是隨機形狀。請務必也閱讀<a href="http://www.coppeliarobotics.com/helpFiles/en/shapes.htm"><span>此頁面</span></a>。在我們想要構建的機器人的情況下，我們將機器人的底座作為一個純圓柱體，其他連結作為凸或凸分解的形狀。</p>
+<p> </p>
+<p>We could use the dynamically enabled shapes also as the visible parts of the robot, but that would probably not look good enough. So instead, we will build for each visible shape we have created in <a href="http://www.coppeliarobotics.com/helpFiles/en/buildingAModelTutorial.htm#visibleShapes">the first part of the tutorial</a> a dynamically enabled counterpart, which we will keep hidden: the hidden part will represent the dynamic model and be exclusively used by the physics engine, while the visible part will be used for visualization, but also for <a href="http://www.coppeliarobotics.com/helpFiles/en/distanceCalculation.htm">minimum distance calculations</a>, <a href="http://www.coppeliarobotics.com/helpFiles/en/proximitySensors.htm">proximity sensor detections</a>, etc.</p>
+<p> </p>
+<p>我們可以將動態啟用的形狀用作機器人的可見部分，但可能看起來不夠好。因此，我們將為在<a href="http://www.coppeliarobotics.com/helpFiles/en/buildingAModelTutorial.htm#visibleShapes"><span>本教程的第一部分</span></a>中創建的每個可見形狀構建一個動態啟用的對應形狀，我們將隱藏該形狀：隱藏部分將表示動態模型，並由物理引擎獨佔使用，而可見部分將用於視覺化，但也用於<a href="http://www.coppeliarobotics.com/helpFiles/en/distanceCalculation.htm"><span>最小距離計算</span></a>、<a href="http://www.coppeliarobotics.com/helpFiles/en/proximitySensors.htm"><span>接近感應器檢測</span></a>等。</p>
+<p>We select object <em>robot</em>, copy-and-paste it into a new scene (in order to keep the original model intact) and start the <a href="http://www.coppeliarobotics.com/helpFiles/en/triangleEditMode.htm">triangle edit mode</a>. If object <em>robot</em> was a compound shape, we would first have had to ungroup it ([Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; Ungroup selected shapes]) then merge the individual shapes ([Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; Merge selected shapes]) before being able to start the triangle edit mode. Now we select the few triangles that represent the power cable, and erase them. Then we select all triangles in that shape, and click Extract cylinder. We can now leave the edit mode and we have our base object represented as a pure cylinder:</p>
+<p> </p>
+<p>我們選擇物件<em>機器人</em>，複製並粘貼到一個新的場景（為了保持原始模型不變），並開始<a href="http://www.coppeliarobotics.com/helpFiles/en/triangleEditMode.htm"><span>三角形編輯模式</span></a>。如果物件<em>機器人</em>是複合形狀，我們首先必須取消群組它（[功能表列 -- &gt; 編輯 --&gt; 分組/合併 -- &gt; 取消組選定形狀]），然後合併單個形狀（[功能表列 -- &gt; 編輯 --&gt; 分組/合併 -- &gt; 合併所選形狀]），然後才能啟動三角形編輯模式。現在，我們選擇表示電源線的幾個三角形，並擦除它們。然後，我們選擇該形狀中的所有三角形，然後按一下"提取圓柱體"。我們現在可以離開編輯模式，並將基本物件表示為純圓柱體：</p>
+<p>We rename the new shape (with a double-click on its name in the <a href="http://www.coppeliarobotics.com/helpFiles/en/userInterface.htm#SceneHierarchy">scene hierarchy</a>) as <em>robot_dyn</em>, assign it to visibility layer 9, then copy it to the original scene. The rest of the links will be modelled as convex shapes, or compound convex shapes. We now select the first mobile link (i.e. object <em>robot_link1</em>) and generate a convex shape from it with [Menu bar --&gt; Add --&gt; Convex hull of selection].</p>
+<p>我們將新形狀（在<a href="http://www.coppeliarobotics.com/helpFiles/en/userInterface.htm#SceneHierarchy"><span>場景層次結構</span></a>中按兩下其名稱）重命名為<em>robot_dyn，</em>將其分配給可見度層 9，然後將其複製到原始場景。其餘連結將建模為凸形或複合凸形。現在，我們選擇第一個手機連結（即物件<em>robot_link1），</em>並生成一個凸形形狀，從它與 [功能表列 -- &gt; 添加 -&gt; 凸面選擇包]。</p>
 <p><span>40723242          趙子德</span></p>
 <p><span>40723243          劉子源</span></p>
 <p>Model definition<br/>型號定義</p>
@@ -680,6 +782,20 @@
 <p>Now, only items that are taken into account by the physics engine will be display, and the display is color-coded. <br/>現在，將僅顯示物理引擎考慮的項目，並且該顯示使用顏色編碼。</p>
 <p></p>
 <p><span>40723245          蔡育灃</span></p>
+<p>It is very important to always do this, and specially when your dynamic model doesn't behave as expected, in order to quickly debug the model. Similarly, always look at the scene hierarchy during simulation: dynamically enabled objects should display a ball-bounding icon on the right-hand side of their name.</p>
+<p>始終執行此操作非常重要，尤其是在動態模型無法按預期運行時，為了快速調試模型，尤其如此。同樣，在仿真過程中請始終查看場景層次：動態啟用的對象應在其名稱的右側顯示一個球形圖標。</p>
+<p><br/>Finally, we need to prepare the robot so that we can easily attach a gripper to it, or easily attach the robot to a mobile platform (for instance). Two dynamically enabled shapes can be rigidly attached to each other in two different ways:</p>
+<p><br/>最後，我們需要準備機器人，以便我們可以輕鬆地將抓取器連接到它，或輕鬆地將機器人連接到移動平台（例如）。可以通過兩種不同的方式將兩個動態啟用的形狀嚴格地彼此附加：</p>
+<p><br/>• by grouping them: select the shapes, then [Menu bar --&gt; Edit --&gt; Grouping/Merging --&gt; Group selected shapes].<br/>• by attaching them via a force/torque sensor: a force torque sensor can also act as a rigid link between two separate dynamically enabled shapes.</p>
+<p><br/>•通過對它們進行分組：選擇形狀，然後選擇[菜單欄-&gt;編輯-&gt;分組/合併-&gt;對選定形狀進行分組]。<br/>•通過力/扭矩傳感器進行連接：力扭矩傳感器還可以充當兩個單獨的動態啟用形狀之間的剛性鏈接。</p>
+<p><br/>In our case, only option 2 is of interest. We create a force/torque sensor with [Menu bar --&gt; Add --&gt; Force sensor], then move it to the tip of the robot, then attach it to object robot_link_dyn6. We change its size and visual appearance appropriately (a red force/torque sensor is often perceived as an optional attachment point, check the various robot models available). We also change its name to robot_attachment:</p>
+<p><br/>在我們的情況下，只有選項2是有意義的。我們使用[菜單欄-&gt;添加-&gt;力傳感器]創建一個力/扭矩傳感器，然後將其移動到機器人的尖端，然後將其附加到對象robot_link_dyn6。我們會適當地更改其尺寸和外觀（紅色力/扭矩傳感器通常被視為可選的連接點，請檢查可用的各種機器人型號）。我們還將其名稱更改為robot_attachment：</p>
+<p><br/>Now we drag a gripper model into the scene, keep it selected, then control-click the attachment force sensor, then click the Assembling/disassembling toolbar button. The gripper goes into place:</p>
+<p><br/>現在，我們將抓手模型拖到場景中，使其保持選中狀態，然後按住Control鍵單擊並單擊附著力傳感器，然後單擊“裝配/拆卸”工具欄按鈕。夾持器到位：</p>
+<p><br/>The gripper knew how to attach itself because it was appropriately configured during its model definition. We now also need to properly configure the robot model, so that it will know how to attach itself to a mobile base for instance. We select the robot model, then click Assembling in the object common properties. Set an empty string for 'Parent' match values, then click Set matrix. This will memorize the current base object's local transformation matrix, and use it to position/orient itself relative to the mobile robot's attachment point. To verify that we did things right, we drag the model Models/robots/mobile/KUKA Omnirob.ttm into the scene. Then we select our robot model, then control-click one of the attachment points on the mobile platform, then click the Assembling/disassembling toolbar button. Our robot should correctly place itself on top of the mobile robot:</p>
+<p><br/>抓具知道如何附加自身，因為它在模型定義期間進行了適當的配置。現在，我們還需要正確配置機器人模型，以便它將知道如何將自己附加到移動基座上。我們選擇機器人模型，然後在對象公共屬性中單擊“組裝”。為“父項”匹配值設置一個空字符串，然後單擊“設置矩陣”。這將記住當前基礎對象的局部轉換矩陣，並使用它相對於移動機器人的附著點定位/定向。為了驗證我們做的正確，我們將模型Models / robots / mobile / KUKA Omnirob.ttm拖到場景中。然後，我們選擇機器人模型，然後在移動平台上按住Control鍵並單擊其中一個附接點，然後單擊“組裝/拆卸”工具欄按鈕。我們的機器人應該正確地將自己放置在移動機器人的頂部：</p>
+<p><br/>Now we could add additional items to our robot, such as sensors for instance. At some point we might also want to attach embedded scripts to our model, in order to control its behaviour or configure it for various purposes. In that case, make sure to understand how object handles are accessed from embedded scripts. We can also control/access/interface our model from a plugin, from a remote API client, from a ROS node, from a BlueZero node, or from an add-on.<br/>Now we make sure we have reverted the changes done during robot and gripper attachment, we collapse the hierarchy tree of our robot model, select the base of our model, then save it with [Menu bar --&gt; File --&gt; Save model as...]. If we saved it in the model folder, then the model will be available in the model brower.</p>
+<p><br/>現在，我們可以向機器人添加其他項目，例如傳感器。在某些時候，我們可能還希望將嵌入式腳本附加到我們的模型中，以便控制其行為或出於各種目的對其進行配置。在這種情況下，請確保了解如何從嵌入式腳本訪問對象句柄。我們還可以通過插件，遠程API客戶端，ROS節點，BlueZero節點或附加組件來控制/訪問/接口模型。<br/>現在，確保已恢復在機械手和抓爪安裝過程中所做的更改，我們折疊了機械手模型的層次樹，選擇了模型的基礎，然後使用[菜單欄-&gt;文件-&gt;將模型另存為...]。如果我們將其保存在模型文件夾中，則模型將在模型瀏覽器中可用。</p>
 <h4 id="title-content">Webots User Guide</h4>
 <p>40723201          吳沛汶</p>
 <p>40723204          邱倚瀅</p>
@@ -699,10 +815,44 @@
 <p>本小節介紹了Webots中最重要的基礎節點：Solid節點，許多其他節點都來自Solid節點。</p>
 <p></p>
 <p>40723213          杜玗宸</p>
+<p><strong>翻譯Webots User Guide</strong></p>
+<p>A <a href="https://cyberbotics.com/doc/reference/solid">Solid</a> node represents a <strong>rigid body</strong>, that is a body in which deformation can be neglected. The distance between any two given points of a rigid body remains constant in time regardless of external forces exerted on it. For example a table, a robot finger phalanx or a wheel are rigid bodies. Soft bodies and articulated objects are not rigid bodies. For example, a rope, a tire, a sponge or an articulated robot arm are not rigid bodies. However, an articulated entity can be broken into several rigid bodies.</p>
+<p>The physics engine of Webots is designed for simulating rigid bodies only. An important step, when designing a simulation, is to break up the various entities into separate rigid bodies.</p>
+<p>To define a rigid body, you will have to create a <a href="https://cyberbotics.com/doc/reference/solid">Solid</a> node. Inside this node you will set up different sub-nodes corresponding to the characteristics of the rigid body. The following <a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#the-simplest-model-of-a-rigid-body-in-webots-having-a-graphical-representation-a-physical-bounding-object-and-being-in-the-dynamical-environment">figure</a> depicts a rigid body and its sub-nodes. The graphical representation of the <a href="https://cyberbotics.com/doc/reference/solid">Solid</a> node is defined by the <a href="https://cyberbotics.com/doc/reference/shape">Shape</a> nodes populating its children list. The collision bounds are defined in its boundingObject field. The graphical representation and the collision shape are often but not necessarily identical. Finally, the physics field defines if the object belongs to the dynamical or to the static environment. All these sub-nodes are optional, but the physics field needs the boundingObject to be defined.</p>
+<p><img alt="" height="293" src="https://s40723213.github.io/cad2019/images/%E6%93%B7%E5%8F%96.PNG" width="346"/></p>
+<p><span><span>The simplest model of a rigid body in Webots having a graphical representation, a physical bounding object and being in the dynamical environment.</span></span></p>
+<p>The Geometry box (in <a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#the-simplest-model-of-a-rigid-body-in-webots-having-a-graphical-representation-a-physical-bounding-object-and-being-in-the-dynamical-environment">this figure</a>) stands for any kind of geometrical primitive. In fact, it can be substituted by a <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a>, a <a href="https://cyberbotics.com/doc/reference/box">Box</a>, a <a href="https://cyberbotics.com/doc/reference/cylinder">Cylinder</a>, etc.</p>
+<p>實體節點表示剛體，即可以忽略變形的剛體。剛體上任意兩個給定點之間的距離在時間上保持恆定，而不管施加在其上的外力如何。例如，桌子，機械手指骨或輪子是剛體。軟體和關節物體不是剛體。例如，繩索，輪胎，海綿或關節式機械臂不是剛性體。但是，可以將一個鉸接的實體分解為幾個剛體。</p>
+<p><span>Webots</span>的物理引擎僅設計用於模擬剛體。設計仿真時，重要的一步是將各個實體分解為單獨的剛體。</p>
+<p>要定義剛體，您將必須創建一個實體節點。在此節點內，您將根據剛體的特性設置不同的子節點。下圖描繪了剛體及其子節點。實體節點的圖形表示由填充其子級列表的<span>Shape</span>節點定義。碰撞範圍在其<span>boundingObject</span>字段中定義。圖形表示和碰撞形狀通常但不一定相同。最後，物理字段定義對像是屬於動態環境還是屬於靜態環境。所有這些子節點都是可選的，但物理場需要定義<span>boundingObject</span>。</p>
+<p><img alt="" height="293" src="https://s40723213.github.io/cad2019/images/%E6%93%B7%E5%8F%96.PNG" width="346"/></p>
+<p><span>Webots</span>中剛體的最簡單模型，具有圖形表示，物理邊界對象並且處於動態環境中。</p>
+<p>幾何框（在此圖中）代表任何類型的幾何圖元。 實際上，它可以用球體，盒子，圓柱體等代替。</p>
 <p>40723215          杜彥霆</p>
 <p>40723218          林志豪</p>
 <p>40723219          林承治</p>
 <p>40723237          黃俊翔</p>
+<h3>DEF-USE Mechanism</h3>
+<h3>DEF-USE 機制</h3>
+<p>The <strong>DEF-USE mechanism</strong> allows to define a node in one place and to reuse that definition elsewhere in the scene tree. This is useful to avoid the duplication of identical nodes in world files. Moreover, it also allows users to modify several objects at the same time. Here is how it works: first a node is labeled with a DEF string. Then copies of this node can be reused elsewhere with the USE keyword. Only the fields of the DEF node can be edited, the fields of the USE inherit from the DEF node and cannot be changed. This mechanism is dependent on the order of the nodes in the world file. A DEF node should be defined before any corresponding USE node.</p>
+<p><span> </span></p>
+<p><strong>DEF-USE </strong><strong>機制</strong>允許在一個位置定義節點，並在場景樹的其他位置重用該定義。這對於避免世界檔中相同節點的重複非常有用。此外，它還允許使用者同時修改多個物件。下面是它的工作原理：首先，節點用<span> DEF </span>字串標記。然後，此節點的副本可以使用<span> USE </span>關鍵字在其他地方重用。只能編輯<span> DEF </span>節點的欄位，<span>USE </span>的欄位從<span> DEF </span>節點繼承，不能更改。此機制取決於世界檔中節點的順序。應在任何相應的<span> USE </span>節點之前定義<span> DEF </span>節點。</p>
+<p>The two <span><a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a></span> definitions that we have used earlier to define the ball, are redundant. We will now merge these two <span><a href="https://cyberbotics.com/doc/reference/sphere">Spheres</a></span> into only once using the DEF-USE mechanism.</p>
+<p> </p>
+<p><span><a href="https://cyberbotics.com/doc/reference/sphere"> </a></span>我們之前用於定義球的兩個球體定義是多餘的。現在，我們將使用<span> DEF-USE </span>機制僅將這兩個<span><a href="https://cyberbotics.com/doc/reference/sphere"><span>球體</span></a></span>合併為一次。</p>
+<p><strong>Hands-on #6</strong>: Select the first <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> node (the child of the <a href="https://cyberbotics.com/doc/reference/shape">Shape</a>) in the scene tree view. The <a href="https://cyberbotics.com/doc/guide/the-scene-tree#field-editor">field editor</a> of the scene tree view allows you to enter the DEF string.</p>
+<p> </p>
+<p><strong>動手</strong>#6：在場景樹狀檢視中選擇第一個<a href="https://cyberbotics.com/doc/reference/sphere"><span>球體</span></a>節點（<a href="https://cyberbotics.com/doc/reference/shape"><span>形狀</span></a>子節點）。 <a href="https://cyberbotics.com/doc/guide/the-scene-tree#field-editor"> </a>場景樹狀檢視的欄位編輯器允許您輸入<span> DEF </span>字串。</p>
+<ol>
+<li>Enter BALL_GEOMETRYin this field.</li>
+<li>在此欄位中輸入BALL_GEOMETRY。</li>
+<li>Select the boundingObjectfield (containing the second <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> node), and empty it by right clicking the field in the scene tree and choosing the Delete entry in the context menu that pops up.</li>
+<li>選擇邊界物件欄位（包含第二個 <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> 節點），然後通過按右鍵場景樹中的欄位並在彈出的內容功能表中選擇"刪除"條目來清空該欄位。</li>
+<li>Then, select the boundingObjectfield and click on the Add button, and select the USE / BALL_GEOMETRY in the dialog box.</li>
+<li>然後，選擇"邊界物件<span>"</span>欄位並按一下"添加<span>"</span>按鈕，然後在對話方塊中選擇"使用<span>/BALL_GEOMETRY"</span>。</li>
+<li>The result is shown in <a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#def-use-mechanism-on-the-sphere-node-called-ball_geometry">this figure</a>.</li>
+<li>結果如下<a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#def-use-mechanism-on-the-sphere-node-called-ball_geometry"><span>圖</span></a>所示。</li>
+</ol>
 <p><span>40723242          趙子德</span></p>
 <p><span>40723243          劉子源</span></p>
 <p>Now, changing the radius field of the first Sphere node also modifies its boundingObject.<br/>現在，更改第一個Sphere節點的半徑字段也會修改其boundingObject。</p>
@@ -712,7 +862,16 @@
 <p>physics 物理<br/>boundingObject<br/>children 孩子們<br/>geometry 幾何<br/>Solid 固體<br/>Physics 物理<br/>USE BALL_GEOMETRY 使用BALL_GEOMETRY<br/>Shape 形狀<br/>DEF BALL_GEOMETRY Sphere DEF BALL_GEOMETRY球體</p>
 <p>DEF-USE mechanism applied on the Shape node of a Solid.<br/>Hands-on #7: Create a second ball with the same parameters but using the Shape node (rather than the Sphere node directly) for the DEF-USE mechanism.</p>
 <p>在實體的“形狀”節點上應用的DEF-USE機制。<br/>動手練習7：使用DEF-USE機制的Shape節點（而不是直接使用Sphere節點）創建具有相同參數的第二個球。</p>
-<p><span>40723245          蔡育灃</span></p><h1>M.A.L</h1>
+<p><span>40723245          蔡育灃</span></p>
+<p><span>Add Walls<br/>In order to verify your progression, implement by yourself four walls to surround the environment. The walls have to be defined statically to the environment. To understand the difference between static and dynamic, let's take a defined object (the ball) above the ground. If the Physics node is NULL, it will remain frozen in the air during the simulation (static case). If the physics field contains a Physics nodes, it will fall under the effect of gravity (dynamic case).</span></p>
+<p><span><br/>添加牆<br/>為了驗證您的進度，請自己實施四堵牆以包圍環境。必鬚根據環境靜態定義牆壁。要了解靜態和動態之間的區別，我們將定義的物體（球）放在地面上方。如果“物理”節點為NULL，則在仿真過程中它將保持凍結狀態（靜態情況）。如果物理場包含“物理”節點，則它將受重力作用（動態情況）。</span></p>
+<p><span><br/>Use as much as possible the DEF-USE mechanism at the Shape level rather than at the Geometry level. Indeed it's more convenient to add an intermediate Shape node in the boundingObject field of the Solid node. The best Geometry primitive to implement the walls is the Box node. Only one Shape has to be defined for all the walls. The expected result is shown in this figure.</span></p>
+<p><span><br/>在Shape級別而不是Geometry級別，盡可能使用DEF-USE機制。實際上，在Solid節點的boundingObject字段中添加中間Shape節點更為方便。實現牆的最佳幾何原語是Box節點。所有牆壁僅需定義一個形狀。預期結果如圖所示</span></p>
+<p><span><br/>Hands-on #8: Add four walls without physics and using only one definition of the Shape node.</span></p>
+<p><span><br/>實際操作＃8：添加四面牆，無需物理操作，僅使用“形狀”節點的一個定義。</span></p>
+<p><span><br/>Solution: World File<br/>To compare your world with the solution, go to your files and find the folder named "my_first_simulation" created in Tutorial 1, then go to the "worlds" folder and open with a text editor the right world. This solution as the others is located in the solution directory.</span></p>
+<p><span><br/>解決方案：世界文件<br/>要將您的世界與解決方案進行比較，請轉到文件，找到在教程1中創建的名為“ my_first_simulation”的文件夾，然後轉到“ worlds”文件夾，並使用文本編輯器打開正確的世界。與其他解決方案一樣，該解決方案位於解決方案目錄中。</span></p>
+<h1>M.A.L</h1>
 <p></p>
 <p><span> ☑出席      ☒缺席</span></p>
 <table style="width: 681px;">

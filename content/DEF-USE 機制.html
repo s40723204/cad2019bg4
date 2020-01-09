@@ -154,11 +154,45 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">NOTE << <a href='NOTE.html'>Previous</a> <a href='Batch Command.html'>Next</a> >> Batch Command<br /><h1>website</h1>
-<p><a href="https://github.com/mdecourse/cad2019/issues" target="_blank">issues</a></p>
-<p><a href="/2019%20Fall 電腦輔助設計實習課程網頁" target="_blank">2019 Fall 電腦輔助設計實習課程網頁</a></p>
-<p></p>
-<br />NOTE << <a href='NOTE.html'>Previous</a> <a href='Batch Command.html'>Next</a> >> Batch Command</div>
+    <div id="tipue_search_content">DEF-USE Mechanism << <a href='DEF-USE Mechanism.html'>Previous</a> <a href='M.A.L.html'>Next</a> >> M.A.L<br /><h1>DEF-USE 機制</h1>
+<p>The <strong>DEF-USE mechanism</strong> allows to define a node in one place and to reuse that definition elsewhere in the scene tree. This is useful to avoid the duplication of identical nodes in world files. Moreover, it also allows users to modify several objects at the same time. Here is how it works: first a node is labeled with a DEF string. Then copies of this node can be reused elsewhere with the USE keyword. Only the fields of the DEF node can be edited, the fields of the USE inherit from the DEF node and cannot be changed. This mechanism is dependent on the order of the nodes in the world file. A DEF node should be defined before any corresponding USE node.</p>
+<p><span> </span></p>
+<p><strong>DEF-USE </strong><strong>機制</strong>允許在一個位置定義節點，並在場景樹的其他位置重用該定義。這對於避免世界檔中相同節點的重複非常有用。此外，它還允許使用者同時修改多個物件。下面是它的工作原理：首先，節點用<span> DEF </span>字串標記。然後，此節點的副本可以使用<span> USE </span>關鍵字在其他地方重用。只能編輯<span> DEF </span>節點的欄位，<span>USE </span>的欄位從<span> DEF </span>節點繼承，不能更改。此機制取決於世界檔中節點的順序。應在任何相應的<span> USE </span>節點之前定義<span> DEF </span>節點。</p>
+<p>The two <span><a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a></span> definitions that we have used earlier to define the ball, are redundant. We will now merge these two <span><a href="https://cyberbotics.com/doc/reference/sphere">Spheres</a></span> into only once using the DEF-USE mechanism.</p>
+<p> </p>
+<p><span><a href="https://cyberbotics.com/doc/reference/sphere"> </a></span>我們之前用於定義球的兩個球體定義是多餘的。現在，我們將使用<span> DEF-USE </span>機制僅將這兩個<span><a href="https://cyberbotics.com/doc/reference/sphere"><span>球體</span></a></span>合併為一次。</p>
+<p><strong>Hands-on #6</strong>: Select the first <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> node (the child of the <a href="https://cyberbotics.com/doc/reference/shape">Shape</a>) in the scene tree view. The <a href="https://cyberbotics.com/doc/guide/the-scene-tree#field-editor">field editor</a> of the scene tree view allows you to enter the DEF string.</p>
+<p> </p>
+<p><strong>動手</strong>#6：在場景樹狀檢視中選擇第一個<a href="https://cyberbotics.com/doc/reference/sphere"><span>球體</span></a>節點（<a href="https://cyberbotics.com/doc/reference/shape"><span>形狀</span></a>子節點）。 <a href="https://cyberbotics.com/doc/guide/the-scene-tree#field-editor"> </a>場景樹狀檢視的欄位編輯器允許您輸入<span> DEF </span>字串。</p>
+<ol>
+<li>Enter BALL_GEOMETRYin this field.</li>
+<li>在此欄位中輸入BALL_GEOMETRY。</li>
+<li>Select the boundingObjectfield (containing the second <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> node), and empty it by right clicking the field in the scene tree and choosing the Delete entry in the context menu that pops up.</li>
+<li>選擇邊界物件欄位（包含第二個 <a href="https://cyberbotics.com/doc/reference/sphere">Sphere</a> 節點），然後通過按右鍵場景樹中的欄位並在彈出的內容功能表中選擇"刪除"條目來清空該欄位。</li>
+<li>Then, select the boundingObjectfield and click on the Add button, and select the USE / BALL_GEOMETRY in the dialog box.</li>
+<li>然後，選擇"邊界物件<span>"</span>欄位並按一下"添加<span>"</span>按鈕，然後在對話方塊中選擇"使用<span>/BALL_GEOMETRY"</span>。</li>
+<li>The result is shown in <a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#def-use-mechanism-on-the-sphere-node-called-ball_geometry">this figure</a>.</li>
+<li>結果如下<a href="https://cyberbotics.com/doc/guide/tutorial-2-modification-of-the-environment#def-use-mechanism-on-the-sphere-node-called-ball_geometry"><span>圖</span></a>所示。</li>
+</ol>
+<p><span>40723242          趙子德</span></p>
+<p><span>40723243          劉子源</span></p>
+<p>Now, changing the radius field of the first Sphere node also modifies its boundingObject.<br/>現在，更改第一個Sphere節點的半徑字段也會修改其boundingObject。</p>
+<p>For convenience, the boundingObject field accepts also the Shape node (rather than the Sphere node directly). It would be also possible to use the same DEF-USE mechanism at the Shape level as shown in this figure.<br/>為了方便起見，boundingObject字段還接受Shape節點（而不是直接接受Sphere節點）。如圖所示，也可以在Shape級別使用相同的DEF-USE機制。</p>
+<p>For now the greatest benefit is being able to also use this Shape directly for graphical purposes. Later this mechanism will turn out to be very useful for some sensors.<br/>到目前為止，最大的好處就是也可以直接將此Shape用於圖形目的。後來，對於某些傳感器，該機制將變得非常有用。</p>
+<p>on the Sphere node called BALL_GEOMETRY.<br/>在名為BALL_GEOMETRY的Sphere節點上。</p>
+<p>physics 物理<br/>boundingObject<br/>children 孩子們<br/>geometry 幾何<br/>Solid 固體<br/>Physics 物理<br/>USE BALL_GEOMETRY 使用BALL_GEOMETRY<br/>Shape 形狀<br/>DEF BALL_GEOMETRY Sphere DEF BALL_GEOMETRY球體</p>
+<p>DEF-USE mechanism applied on the Shape node of a Solid.<br/>Hands-on #7: Create a second ball with the same parameters but using the Shape node (rather than the Sphere node directly) for the DEF-USE mechanism.</p>
+<p>在實體的“形狀”節點上應用的DEF-USE機制。<br/>動手練習7：使用DEF-USE機制的Shape節點（而不是直接使用Sphere節點）創建具有相同參數的第二個球。</p>
+<p><span>40723245          蔡育灃</span></p>
+<p><span>Add Walls<br/>In order to verify your progression, implement by yourself four walls to surround the environment. The walls have to be defined statically to the environment. To understand the difference between static and dynamic, let's take a defined object (the ball) above the ground. If the Physics node is NULL, it will remain frozen in the air during the simulation (static case). If the physics field contains a Physics nodes, it will fall under the effect of gravity (dynamic case).</span></p>
+<p><span><br/>添加牆<br/>為了驗證您的進度，請自己實施四堵牆以包圍環境。必鬚根據環境靜態定義牆壁。要了解靜態和動態之間的區別，我們將定義的物體（球）放在地面上方。如果“物理”節點為NULL，則在仿真過程中它將保持凍結狀態（靜態情況）。如果物理場包含“物理”節點，則它將受重力作用（動態情況）。</span></p>
+<p><span><br/>Use as much as possible the DEF-USE mechanism at the Shape level rather than at the Geometry level. Indeed it's more convenient to add an intermediate Shape node in the boundingObject field of the Solid node. The best Geometry primitive to implement the walls is the Box node. Only one Shape has to be defined for all the walls. The expected result is shown in this figure.</span></p>
+<p><span><br/>在Shape級別而不是Geometry級別，盡可能使用DEF-USE機制。實際上，在Solid節點的boundingObject字段中添加中間Shape節點更為方便。實現牆的最佳幾何原語是Box節點。所有牆壁僅需定義一個形狀。預期結果如圖所示</span></p>
+<p><span><br/>Hands-on #8: Add four walls without physics and using only one definition of the Shape node.</span></p>
+<p><span><br/>實際操作＃8：添加四面牆，無需物理操作，僅使用“形狀”節點的一個定義。</span></p>
+<p><span><br/>Solution: World File<br/>To compare your world with the solution, go to your files and find the folder named "my_first_simulation" created in Tutorial 1, then go to the "worlds" folder and open with a text editor the right world. This solution as the others is located in the solution directory.</span></p>
+<p><span><br/>解決方案：世界文件<br/>要將您的世界與解決方案進行比較，請轉到文件，找到在教程1中創建的名為“ my_first_simulation”的文件夾，然後轉到“ worlds”文件夾，並使用文本編輯器打開正確的世界。與其他解決方案一樣，該解決方案位於解決方案目錄中。</span></p>
+<br />DEF-USE Mechanism << <a href='DEF-USE Mechanism.html'>Previous</a> <a href='M.A.L.html'>Next</a> >> M.A.L</div>
         
     <!-- footer -->
       <div class="container">
