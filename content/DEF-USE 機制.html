@@ -143,7 +143,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='Member.html'>Member</a><li class='has-children'><a href='Week.html'>Week</a><ul class='dropdown'><li class='has-children'><a href='week10 - 14.html'>week10 - 14</a><ul class='dropdown'><li><a href='week10.html'>week10</a><li><a href='SolidWorks-1.html'>SolidWorks-1</a><li><a href='SolidWorks-2.html'>SolidWorks-2</a><li><a href='NX.html'>NX</a><li><a href='Creo Parametric.html'>Creo Parametric</a><li><a href='SDRC.html'>SDRC</a><li><a href='week12.html'>week12</a><li><a href='week13.html'>week13</a></li></ul><li class='has-children'><a href='week15 - 18.html'>week15 - 18</a><ul class='dropdown'><li><a href='week17協同任務.html'>week17協同任務</a><li><a href='DEF-USE Mechanism.html'>DEF-USE Mechanism</a><li><a href='DEF-USE 機制.html'>DEF-USE 機制</a></li></li></ul></ul><li><a href='M.A.L.html'>M.A.L</a><li class='has-children'><a href='NOTE.html'>NOTE</a><ul class='dropdown'><li class='has-children'><a href='website.html'>website</a><ul class='dropdown'><li><a href='Batch Command.html'>Batch Command</a></li>
+                     <li><a href='Member.html'>Member</a><li class='has-children'><a href='Week.html'>Week</a><ul class='dropdown'><li class='has-children'><a href='week10 - 14.html'>week10 - 14</a><ul class='dropdown'><li><a href='week10.html'>week10</a><li><a href='SolidWorks.html'>SolidWorks</a><li><a href='NX.html'>NX</a><li><a href='Creo Parametric.html'>Creo Parametric</a><li><a href='SDRC.html'>SDRC</a><li><a href='week12.html'>week12</a><li><a href='week13.html'>week13</a></li></ul><li class='has-children'><a href='week15 - 18.html'>week15 - 18</a><ul class='dropdown'><li><a href='week17協同任務.html'>week17協同任務</a><li><a href='DEF-USE Mechanism.html'>DEF-USE Mechanism</a><li><a href='DEF-USE 機制.html'>DEF-USE 機制</a></li></li></ul></ul><li><a href='M.A.L.html'>M.A.L</a><li class='has-children'><a href='NOTE.html'>NOTE</a><ul class='dropdown'><li class='has-children'><a href='website.html'>website</a><ul class='dropdown'><li><a href='Batch Command.html'>Batch Command</a></li>
                       </ul>
                 </nav>
               </div>
@@ -184,6 +184,14 @@ img.add_border {
 <p>DEF-USE mechanism applied on the Shape node of a Solid.<br/>Hands-on #7: Create a second ball with the same parameters but using the Shape node (rather than the Sphere node directly) for the DEF-USE mechanism.</p>
 <p>在實體的“形狀”節點上應用的DEF-USE機制。<br/>動手練習7：使用DEF-USE機制的Shape節點（而不是直接使用Sphere節點）創建具有相同參數的第二個球。</p>
 <p><span>40723245          蔡育灃</span></p>
+<p><span>Add Walls<br/>In order to verify your progression, implement by yourself four walls to surround the environment. The walls have to be defined statically to the environment. To understand the difference between static and dynamic, let's take a defined object (the ball) above the ground. If the Physics node is NULL, it will remain frozen in the air during the simulation (static case). If the physics field contains a Physics nodes, it will fall under the effect of gravity (dynamic case).</span></p>
+<p><span><br/>添加牆<br/>為了驗證您的進度，請自己實施四堵牆以包圍環境。必鬚根據環境靜態定義牆壁。要了解靜態和動態之間的區別，我們將定義的物體（球）放在地面上方。如果“物理”節點為NULL，則在仿真過程中它將保持凍結狀態（靜態情況）。如果物理場包含“物理”節點，則它將受重力作用（動態情況）。</span></p>
+<p><span><br/>Use as much as possible the DEF-USE mechanism at the Shape level rather than at the Geometry level. Indeed it's more convenient to add an intermediate Shape node in the boundingObject field of the Solid node. The best Geometry primitive to implement the walls is the Box node. Only one Shape has to be defined for all the walls. The expected result is shown in this figure.</span></p>
+<p><span><br/>在Shape級別而不是Geometry級別，盡可能使用DEF-USE機制。實際上，在Solid節點的boundingObject字段中添加中間Shape節點更為方便。實現牆的最佳幾何原語是Box節點。所有牆壁僅需定義一個形狀。預期結果如圖所示</span></p>
+<p><span><br/>Hands-on #8: Add four walls without physics and using only one definition of the Shape node.</span></p>
+<p><span><br/>實際操作＃8：添加四面牆，無需物理操作，僅使用“形狀”節點的一個定義。</span></p>
+<p><span><br/>Solution: World File<br/>To compare your world with the solution, go to your files and find the folder named "my_first_simulation" created in Tutorial 1, then go to the "worlds" folder and open with a text editor the right world. This solution as the others is located in the solution directory.</span></p>
+<p><span><br/>解決方案：世界文件<br/>要將您的世界與解決方案進行比較，請轉到文件，找到在教程1中創建的名為“ my_first_simulation”的文件夾，然後轉到“ worlds”文件夾，並使用文本編輯器打開正確的世界。與其他解決方案一樣，該解決方案位於解決方案目錄中。</span></p>
 <br />DEF-USE Mechanism << <a href='DEF-USE Mechanism.html'>Previous</a> <a href='M.A.L.html'>Next</a> >> M.A.L</div>
         
     <!-- footer -->
